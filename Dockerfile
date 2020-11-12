@@ -1,11 +1,18 @@
 #镜像
-FROM golang:1.14.2-alpine AS builder
-RUN apk add build-base
-#安全考虑
-#RUN adduser -u 10001 -D app-runner
+FROM ubuntu:18.04
+RUN apt-get update -y -q && apt-get upgrade -y -q 
+#安装工具
+RUN apt-get install gcc -y -q 
+RUN gcc --version
+RUN apt-get install wget -y -q 
+#安装go
+RUN wget https://studygolang.com/dl/golang/go1.15.4.linux-amd64.tar.gz
+RUN tar xfz go1.15.4.linux-amd64.tar.gz -C /usr/local
 #设置环境变量
+ENV PATH $PATH:/usr/local/go/bin
 ENV GO111MODULE on
 ENV GOPROXY=https://goproxy.cn,direct
+RUN go version
 #设置工作目录
 WORKDIR $GOPATH/src/github.com/KouKouChan/CSO2-Server
 #下载mod
@@ -15,7 +22,7 @@ RUN go mod download
 #复制项目文件
 COPY . .
 #构建项目
-RUN go build -o CSO2-Server-docker .
+RUN GOOS=linux GOARCH=amd64 go build -o CSO2-Server-docker .
 #设置工作目录
 WORKDIR $GOPATH/src/github.com/KouKouChan/
 #切换可执行文件位置
