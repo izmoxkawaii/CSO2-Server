@@ -11,11 +11,12 @@ import (
 )
 
 const (
-	WeaponListCSV = "/CSO2-Server/assert/cstrike/scripts/item_list.csv"
-	ExpLevelCSV   = "/CSO2-Server/assert/cstrike/scripts/exp_level.csv"
-	UnlockCSV     = "/CSO2-Server/assert/cstrike/scripts/item_unlock.csv"
-	BoxCSV        = "/CSO2-Server/assert/cstrike/scripts/supplyList.csv"
-	VipCSV        = "/CSO2-Server/assert/cstrike/scripts/vip_info.csv"
+	WeaponListCSV  = "/CSO2-Server/assert/cstrike/scripts/item_list.csv"
+	ExpLevelCSV    = "/CSO2-Server/assert/cstrike/scripts/exp_level.csv"
+	UnlockCSV      = "/CSO2-Server/assert/cstrike/scripts/item_unlock.csv"
+	BoxCSV         = "/CSO2-Server/assert/cstrike/scripts/supplyList.csv"
+	VipCSV         = "/CSO2-Server/assert/cstrike/scripts/vip_info.csv"
+	DefaultItemCSV = "/CSO2-Server/assert/cstrike/scripts/defaultItemList.csv"
 )
 
 type ItemData struct {
@@ -35,6 +36,10 @@ type UnlockData struct {
 	Count1         uint32
 	ConditionFlag2 uint32
 	Count2         uint32
+	ConditionFlag3 uint32
+	Count3         uint32
+	ConditionFlag4 uint32
+	Count4         uint32
 	Category       uint32
 }
 
@@ -131,31 +136,47 @@ func readUnlockList(path string) {
 			if err != nil {
 				continue
 			}
-			flag0, err := strconv.Atoi(record[5])
+			flag0, err := strconv.Atoi(record[2])
 			if err != nil {
 				continue
 			}
-			count0, err := strconv.Atoi(record[6])
+			count0, err := strconv.Atoi(record[3])
 			if err != nil {
 				continue
 			}
-			flag1, err := strconv.Atoi(record[11])
+			flag1, err := strconv.Atoi(record[4])
 			if err != nil {
 				continue
 			}
-			count1, err := strconv.Atoi(record[12])
+			count1, err := strconv.Atoi(record[5])
 			if err != nil {
 				continue
 			}
-			flag2, err := strconv.Atoi(record[17])
+			flag2, err := strconv.Atoi(record[6])
 			if err != nil {
 				continue
 			}
-			count2, err := strconv.Atoi(record[18])
+			count2, err := strconv.Atoi(record[7])
 			if err != nil {
 				continue
 			}
-			cat, err := strconv.Atoi(record[31])
+			flag3, err := strconv.Atoi(record[8])
+			if err != nil {
+				continue
+			}
+			count3, err := strconv.Atoi(record[9])
+			if err != nil {
+				continue
+			}
+			flag4, err := strconv.Atoi(record[10])
+			if err != nil {
+				continue
+			}
+			count4, err := strconv.Atoi(record[11])
+			if err != nil {
+				continue
+			}
+			cat, err := strconv.Atoi(record[12])
 			if err != nil {
 				continue
 			}
@@ -168,6 +189,10 @@ func readUnlockList(path string) {
 				uint32(count1),
 				uint32(flag2),
 				uint32(count2),
+				uint32(flag3),
+				uint32(count3),
+				uint32(flag4),
+				uint32(count4),
 				uint32(cat),
 			}
 
@@ -222,6 +247,72 @@ func readBoxList(path string) {
 				itemname,
 				value,
 			}
+
+			if v, ok := BoxList[uint32(boxid)]; ok {
+				//如果该box数据已经存在
+				v.Items = append(v.Items, item)
+				v.TotalValue += value
+				BoxList[uint32(boxid)] = v
+			} else {
+				BoxList[uint32(boxid)] = BoxData{
+					uint32(boxid),
+					boxname,
+					[]BoxItem{item},
+					value,
+				}
+				BoxIDs = append(BoxIDs, uint32(boxid))
+			}
+		} else {
+			continue
+		}
+	}
+}
+
+func readDefaultItemList(path string) {
+	//读取数据
+	filepath := path + BoxCSV
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			panic(err)
+		}
+		if err == nil {
+			boxid, err := strconv.Atoi(record[0])
+			if err != nil {
+				continue
+			}
+			boxname := record[1]
+			itemid, err := strconv.Atoi(record[2])
+			if err != nil {
+				continue
+			}
+			itemname := record[3]
+			value, err := strconv.Atoi(record[4])
+			if err != nil {
+				continue
+			}
+			//保存当前物品数据
+			if value <= 0 {
+				fmt.Println("Warning ! illeagal value", value, "for item", itemid, "in box", boxid)
+				continue
+			}
+			item := BoxItem{
+				uint32(itemid),
+				itemname,
+				value,
+			}
+
 			if v, ok := BoxList[uint32(boxid)]; ok {
 				//如果该box数据已经存在
 				v.Items = append(v.Items, item)

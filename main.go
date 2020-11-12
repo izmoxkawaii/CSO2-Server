@@ -23,6 +23,7 @@ import (
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/message"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/option"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/playerinfo"
+	. "github.com/KouKouChan/CSO2-Server/blademaster/core/pointlotto"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/quick"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/report"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/room"
@@ -63,7 +64,7 @@ func ReadHead(client net.Conn) ([]byte, bool) {
 		if n >= 1 && SeqBuf[0] == PacketTypeSignature {
 			break
 		}
-		DebugInfo(2, "Recived a illegal head sig from", client.RemoteAddr().String())
+		DebugInfo(2, "Recived a illegal head sig", SeqBuf[0], "from", client.RemoteAddr().String())
 	}
 	for {
 		//DebugInfo(2, "Prepare head", client.RemoteAddr().String())
@@ -137,8 +138,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	DBPath = path + "\\CSO2-Server\\database\\json\\"
-	ReportPath = path + "\\CSO2-Server\\database\\report\\"
+	DBPath = path + "/CSO2-Server/database/json/"
+	ReportPath = path + "/CSO2-Server/database/report/"
 
 	//check folder
 	checkFolder(path)
@@ -196,7 +197,7 @@ func main() {
 
 	//Init Database
 	if Conf.EnableDataBase != 0 {
-		DB, err = InitDatabase(path + "\\CSO2-Server\\database\\sqlite\\cso2.db")
+		DB, err = InitDatabase(path + "/CSO2-Server/database/sqlite/cso2.db")
 		if err != nil {
 			fmt.Println("Init database failed !")
 			Conf.EnableDataBase = 0
@@ -365,6 +366,8 @@ func RecvMessage(client net.Conn) {
 			OnMail(&dataPacket, client)
 		case PacketTypeSupply:
 			OnSupplyRequest(&dataPacket, client)
+		case PacketTypePointLotto:
+			OnPointLotto(&dataPacket, client)
 		default:
 			DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String())
 			//DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String(), dataPacket.Data)
@@ -403,7 +406,7 @@ func checkFolder(path string) {
 		}
 	}
 
-	folderpath := path + "\\CSO2-Server\\database\\report\\"
+	folderpath := path + "/CSO2-Server/database/report/"
 	rst, _ = PathExists(folderpath)
 	if !rst {
 		err := os.Mkdir(folderpath, os.ModePerm)
@@ -416,16 +419,14 @@ func checkFolder(path string) {
 }
 
 // func generate(path string) {
-// 	file := path + "\\supplyList.csv"
+// 	file := path + "\\defaultWeaponList.csv"
 // 	f, _ := os.Create(file)
 // 	defer f.Close()
-// 	f.WriteString(fmt.Sprintf("boxid,boxname,itemid,itemname,value\n"))
-// 	for _, v := range BoxList {
-// 		for _, item := range v.Items {
-// 			if len(ItemList[item.ItemID].Name) <= 0 {
-// 				continue
-// 			}
-// 			f.WriteString(fmt.Sprintf("%d,%s,%d,%s,%d\n", v.BoxID, v.BoxName, item.ItemID, ItemList[item.ItemID].Name, item.Value))
+// 	f.WriteString(fmt.Sprintf("itemid,itemname\n"))
+// 	for _, v := range DefaultInventoryItem {
+// 		if len(ItemList[v.Id].Name) <= 0 {
+// 			continue
 // 		}
+// 		f.WriteString(fmt.Sprintf("%d,%s\n", v.Id, ItemList[v.Id].Name))
 // 	}
 // }
