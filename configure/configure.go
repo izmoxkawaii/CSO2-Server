@@ -16,7 +16,6 @@ type CSO2Conf struct {
 	MaxUsers         uint32
 	EnableShop       uint32
 	UnlockAllWeapons uint32
-	UnlockAllSkills  uint32
 	RedisIP          string
 	RedisPort        uint32
 	DebugLevel       uint32
@@ -83,6 +82,10 @@ var (
 	NAME_ERROR       = "提示：用户名或昵称含有非法字符！"
 	DATABASE_ERROR   = "提示：数据库错误,注册失败！"
 	REGISTER_SUCCESS = "注册成功!"
+
+	configPath  = "/CSO2-Server/configure/server.conf"
+	localesPath = "/CSO2-Server/locales/"
+	mothPath    = "/CSO2-Server/locales/motd.txt"
 )
 
 func (conf *CSO2Conf) InitConf(path string) {
@@ -91,7 +94,7 @@ func (conf *CSO2Conf) InitConf(path string) {
 	}
 	fmt.Printf("Reading configure file ...\n")
 	ini_parser := IniParser{}
-	file := path + "\\CSO2-Server\\configure\\server.conf"
+	file := path + configPath
 	if err := ini_parser.LoadIni(file); err != nil {
 		fmt.Printf("Loading config file error[%s]\n", err.Error())
 		fmt.Printf("Using default data ...\n")
@@ -100,7 +103,6 @@ func (conf *CSO2Conf) InitConf(path string) {
 		conf.MaxUsers = 0
 		conf.EnableShop = 0
 		conf.UnlockAllWeapons = 1
-		conf.UnlockAllSkills = 1
 		conf.PORT = 30001
 		conf.HolePunchPort = 30002
 		conf.RedisIP = "127.0.0.1"
@@ -122,7 +124,6 @@ func (conf *CSO2Conf) InitConf(path string) {
 	}
 	conf.EnableShop = ini_parser.IniGetUint32("Server", "EnableShop")
 	conf.UnlockAllWeapons = ini_parser.IniGetUint32("Server", "UnlockAllWeapons")
-	conf.UnlockAllSkills = ini_parser.IniGetUint32("Server", "UnlockAllSkills")
 	conf.PORT = ini_parser.IniGetUint32("Server", "TCPPort")
 	conf.HolePunchPort = ini_parser.IniGetUint32("Server", "UDPPort")
 	conf.RedisIP = ini_parser.IniGetString("Server", "RedisIP")
@@ -152,7 +153,7 @@ func (locales *CSO2Locales) InitLocales(path string) bool {
 	}
 	fmt.Printf("Reading locale < " + Conf.LocaleFile + " > ...\n")
 	ini_parser := IniParser{}
-	file := path + "\\CSO2-Server\\locales\\" + Conf.LocaleFile
+	file := path + localesPath + Conf.LocaleFile
 	if err := ini_parser.LoadIni(file); err != nil {
 		fmt.Printf("Loading locale file error[%s]\n", err.Error())
 		fmt.Printf("Using default data ...\n")
@@ -191,7 +192,7 @@ func (locales *CSO2Locales) InitMotd(path string) {
 		return
 	}
 	fmt.Printf("Reading motd ...\n")
-	filepath := path + "\\CSO2-Server\\locales\\motd.txt"
+	filepath := path + mothPath
 	dataEncoded, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Printf("Using default motd ...\n")
