@@ -176,13 +176,19 @@ docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 koukouchan/cs
 
 ### 十五、Docker下编译方法
 
-1.首先你需要拥有Docker,请下载并安装Docker和Go1.15,同时配置好Docker,比如Docker源
+1.首先你需要拥有Docker,请下载并安装Docker和Git,同时配置好Docker,比如Docker源,使用如下命令安装git:
+
+```
+yum install git     #centos
+或
+apt-get install git #ubuntu
+```
 
 2.在终端下输入以下命令:
 
 ```shell
-go get github.com/KouKouChan/CSO2-Server
-cd GOPATH目录/src/github.com/KouKouChan/CSO2-Server
+git clone https://github.com/KouKouChan/CSO2-Server
+cd CSO2-Server
 docker build -t cso2-server .
 ```
 
