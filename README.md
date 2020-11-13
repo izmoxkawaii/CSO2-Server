@@ -36,7 +36,7 @@ CSOL2 服务器 v0.3.15
 
 ### 四、正在编写的功能
 
-    
+​    
 
 ### 五、已知问题
 
@@ -141,8 +141,6 @@ Usage of CSO2-Server.exe:
 
 ### 十二、Docker下使用方法
 
-**注意！DockerHub上的版本过旧，建议自行编译**
-
 1.首先你需要拥有Docker,请下载并安装Docker,同时配置好Docker,比如Docker源
 
 2.输入以下命令拉取最新版的服务端:
@@ -154,7 +152,7 @@ docker pull koukouchan/cso2-server:latest
 3.运行服务端
 
 ```shell
-docker run -p 30001:30001 -p 30002:30002 koukouchan/cso2-server:latest
+docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 koukouchan/cso2-server:latest
 ```
 
 4.接下来打开客户端，连接服务器

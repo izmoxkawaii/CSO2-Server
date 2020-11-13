@@ -38,6 +38,8 @@ WORKDIR /usr/local/
 RUN rm -rf /usr/local/go
 RUN rm -rf /root/go
 RUN rm -rf /root/.cache
+RUN rm -rf ./CSO2-Server/database/json
+RUN rm -rf ./CSO2-Server/database/report
 RUN apt-get remove gcc -q -y
 RUN apt-get remove wget -q -y
 #暴露端口
