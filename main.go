@@ -55,9 +55,7 @@ func ReadHead(client net.Conn) ([]byte, bool) {
 	headlen := HeaderLen - 1
 	head, curlen := make([]byte, headlen), 0
 	for {
-		//DebugInfo(2, "Prepare", client.RemoteAddr().String())
 		n, err := client.Read(SeqBuf)
-		//DebugInfo(2, "Got", SeqBuf)
 		if err != nil {
 			return head, false
 		}
@@ -67,9 +65,7 @@ func ReadHead(client net.Conn) ([]byte, bool) {
 		DebugInfo(2, "Recived a illegal head sig", SeqBuf[0], "from", client.RemoteAddr().String())
 	}
 	for {
-		//DebugInfo(2, "Prepare head", client.RemoteAddr().String())
 		n, err := client.Read(head[curlen:])
-		//DebugInfo(2, "Got", head)
 
 		if err != nil {
 			return head, false
@@ -83,12 +79,9 @@ func ReadHead(client net.Conn) ([]byte, bool) {
 }
 
 func ReadData(client net.Conn, len uint16) ([]byte, bool) {
-	//DebugInfo(2, "Prepare data len:", len)
 	data, curlen := make([]byte, len), 0
 	for {
-		//DebugInfo(2, "Prepare data", client.RemoteAddr().String())
 		n, err := client.Read(data[curlen:])
-		//DebugInfo(2, "Got", data)
 		if err != nil {
 			return data, false
 		}
@@ -312,10 +305,6 @@ func RecvMessage(client net.Conn) {
 		var headPacket PacketHeader
 		headPacket.Data = headBytes
 		headPacket.PraseHeadPacket()
-		// if !headPacket.IsGoodPacket {
-		// 	DebugInfo(2, "Recived a illegal head from", client.RemoteAddr().String())
-		// 	continue
-		// }
 
 		//读取数据部分
 		bytes, err := ReadData(client, headPacket.Length)
