@@ -58,23 +58,20 @@ func OnHostGameEnd(p *PacketData, client net.Conn) {
 			rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeHost), BuildHostStop())
 			SendPacket(rst, v.CurrentConnection)
 			//发送游戏战绩
-			if (rm.Setting.GameModeID == ModeZ_scenario || rm.Setting.GameModeID == ModeZ_scenario_side || rm.Setting.GameModeID == ModeHeroes) && rm.WinnerTeam == v.CurrentTeam {
-				boxid := GetRandomBox()
-				v.AddItem(boxid)
-				rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeInventory_Create),
-					BuildInventoryInfoSingle(v, boxid))
-				SendPacket(rst, v.CurrentConnection)
-				boxid2 := GetRandomBox()
-				v.AddItem(boxid2)
-				rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeInventory_Create),
-					BuildInventoryInfoSingle(v, boxid2))
-				SendPacket(rst, v.CurrentConnection)
-				rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), header, BuildGameResult(v, boxid, boxid2, true))
-				SendPacket(rst, v.CurrentConnection)
-			} else {
-				rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), header, BuildGameResult(v, 0, 0, false))
-				SendPacket(rst, v.CurrentConnection)
+			var boxids []uint32
+			bl, numBox := canGetBox(rm, v)
+			if bl {
+				for i := 0; i < numBox; i++ {
+					boxid := GetRandomBox()
+					boxids = append(boxids, boxid)
+					v.AddItem(boxid)
+					rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeInventory_Create),
+						BuildInventoryInfoSingle(v, boxid))
+					SendPacket(rst, v.CurrentConnection)
+				}
 			}
+			rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), header, BuildGameResult(v, boxids))
+			SendPacket(rst, v.CurrentConnection)
 			DebugInfo(2, "Sent game result to User", v.UserName)
 			//修改用户状态
 			v.SetUserIngame(false)
@@ -100,7 +97,7 @@ func OnHostGameEnd(p *PacketData, client net.Conn) {
 func BuildHostStop() []byte {
 	return []byte{HostStop}
 }
-func BuildGameResult(u *User, boxid uint32, boxid2 uint32, reward bool) []byte {
+func BuildGameResult(u *User, boxids []uint32) []byte {
 	buf := make([]byte, 128)
 	offset := 0
 	WriteUint64(&buf, u.CurrentExp+LevelExpTotal[u.Level-1], &offset) //now total EXP
@@ -110,21 +107,15 @@ func BuildGameResult(u *User, boxid uint32, boxid2 uint32, reward bool) []byte {
 	WriteUint8(&buf, 0, &offset)                                      // str len
 	//WriteString(&buf, []byte("Good"), &offset)
 	//WriteString(&buf, []byte("Good"), &offset)
-	if reward {
-		WriteUint8(&buf, 2, &offset)       //num of gifts
-		WriteUint32(&buf, boxid, &offset)  //item id
-		WriteUint16(&buf, 1, &offset)      //item count
-		WriteUint64(&buf, 0, &offset)      //unk22
-		WriteUint16(&buf, 0, &offset)      //unk23 ，maybe 2 bytes
-		WriteUint32(&buf, boxid2, &offset) //item id
-		WriteUint16(&buf, 1, &offset)      //item count
-		WriteUint64(&buf, 0, &offset)      //unk22
-		WriteUint16(&buf, 0, &offset)      //unk23 ，maybe 2 bytes
-		WriteUint8(&buf, 0, &offset)       //unk24
-		WriteUint16(&buf, 0, &offset)      //unk25 ，maybe 2 bytes
-	} else {
-		WriteUint32(&buf, 0, &offset)
+	WriteUint8(&buf, uint8(len(boxids)), &offset) //num of gifts
+	for _, v := range boxids {
+		WriteUint32(&buf, v, &offset) //item id
+		WriteUint16(&buf, 1, &offset) //item count
+		WriteUint64(&buf, 0, &offset) //unk22
+		WriteUint16(&buf, 0, &offset) //unk23 ，maybe 2 bytes
 	}
+	WriteUint8(&buf, 0, &offset)  //unk24
+	WriteUint16(&buf, 0, &offset) //unk25 ，maybe 2 bytes
 	return buf[:offset]
 }
 
@@ -269,4 +260,28 @@ func GetRandomBox() uint32 {
 		randSeed = 0
 	}
 	return BoxIDs[idx]
+}
+
+func canGetBox(rm *Room, u *User) (bool, int) {
+	switch rm.Setting.GameModeID {
+	case ModeZ_scenario, ModeZ_scenario_side, ModeHeroes:
+		if rm.WinnerTeam == u.GetUserTeam() {
+			return true, 2
+		}
+		return false, 0
+	case ModeZombie, ModeZombiecraft, ModeZombie_commander, ModeZombie_prop, ModeZombie_zeta:
+		if rm.NumPlayers >= 3 {
+			return true, 1
+		}
+		return false, 0
+	case ModeOriginal, ModePig, ModeGiant, ModeDeathmatch, ModeTeamdeath, ModeTeamdeath_mutation,
+		ModeStealth, ModeHide, ModeHide2, ModeHide_Item, ModeHide_ice, ModeHide_match, ModeHide_multi,
+		ModeHide_origin:
+		if rm.NumPlayers >= 3 {
+			return true, 1
+		}
+	default:
+		return false, 0
+	}
+	return false, 0
 }
