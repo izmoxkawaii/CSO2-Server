@@ -8,6 +8,7 @@ RUN apt-get install wget -y -q
 #安装go
 RUN wget https://studygolang.com/dl/golang/go1.15.4.linux-amd64.tar.gz
 RUN tar xfz go1.15.4.linux-amd64.tar.gz -C /usr/local
+RUN rm -f go1.15.4.linux-amd64.tar.gz
 #设置环境变量
 ENV PATH $PATH:/usr/local/go/bin
 ENV GO111MODULE on
