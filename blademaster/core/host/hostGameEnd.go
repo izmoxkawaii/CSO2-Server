@@ -135,13 +135,12 @@ func BuildGameResultHeader(rm *Room) []byte {
 	WriteUint8(&buf, 0, &offset)                     //unk01
 	WriteUint8(&buf, rm.Setting.GameModeID, &offset) //game mod？ 0x02 0x01
 	switch rm.Setting.GameModeID {
-	case ModeOriginal, ModePig:
+	case ModeOriginal, ModePig, ModeGiant:
 		WriteUint8(&buf, rm.WinnerTeam, &offset) //winner team？ 0x02 ，生化模式貌似没有？
 		WriteUint8(&buf, rm.CtScore, &offset)    //CT winNum
 		WriteUint8(&buf, rm.TrScore, &offset)    //TR winNum
 		WriteUint8(&buf, 0, &offset)             //上半局CT winNum，开启阵营互换情况
 		WriteUint8(&buf, 0, &offset)             //上半局TR winNum
-		//WriteUint16(&buf, 0, &offset)            //unk00
 	case ModeStealth:
 		WriteUint8(&buf, rm.WinnerTeam, &offset) //winner team？ 0x02 ，生化模式貌似没有？
 		WriteUint8(&buf, rm.CtScore, &offset)    //CT winNum
@@ -221,7 +220,7 @@ func BuildGameResultHeader(rm *Room) []byte {
 			WriteUint32(&temp, 0, &offset)                //unk16 ，maybe 4 bytes
 			WriteUint8(&temp, v.CurrentTeam, &offset)     //user team
 			switch rm.Setting.GameModeID {
-			case ModeOriginal, ModePig:
+			case ModeOriginal, ModePig, ModeGiant:
 				WriteUint32(&temp, 0, &offset) //unk17
 			case ModeDeathmatch, ModeTeamdeath, ModeTeamdeath_mutation:
 			case ModeStealth:
