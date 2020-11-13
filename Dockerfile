@@ -8,6 +8,7 @@ RUN apt-get install wget -y -q
 #安装go
 RUN wget https://studygolang.com/dl/golang/go1.15.4.linux-amd64.tar.gz
 RUN tar xfz go1.15.4.linux-amd64.tar.gz -C /usr/local
+#清理go文件
 RUN rm -f go1.15.4.linux-amd64.tar.gz
 #设置环境变量
 ENV PATH $PATH:/usr/local/go/bin
@@ -22,12 +23,23 @@ COPY go.sum .
 RUN go mod download
 #复制项目文件
 COPY . .
+#清理项目git
+RUN rm -rf ./.git
 #构建项目
 RUN GOOS=linux GOARCH=amd64 go build -o CSO2-Server-docker .
 #设置工作目录
 WORKDIR $GOPATH/src/github.com/KouKouChan/
 #切换可执行文件位置
-RUN mv ./CSO2-Server/CSO2-Server-docker ./CSO2-Server-docker
+RUN mv ./CSO2-Server/CSO2-Server-docker /usr/local/CSO2-Server-docker
+RUN mv ./CSO2-Server /usr/local/CSO2-Server
+#设置工作目录
+WORKDIR /usr/local/
+#清理项目
+RUN rm -rf /usr/local/go
+RUN rm -rf /root/go
+RUN rm -rf /root/.cache
+RUN apt-get remove gcc -q -y
+RUN apt-get remove wget -q -y
 #暴露端口
 EXPOSE 1314
 EXPOSE 1315
