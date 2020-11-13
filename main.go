@@ -143,7 +143,6 @@ func main() {
 	InitCSV(path)
 	FullInventoryItem = CreateFullInventoryItem()
 	FullInventoryReply = BuildFullInventoryInfo()
-	DefaultInventoryItem = InitDefaultInventoryItem()
 	InitBoxReply()
 	InitCampaignReward()
 
