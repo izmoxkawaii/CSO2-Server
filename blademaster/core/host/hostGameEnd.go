@@ -3,6 +3,7 @@ package host
 import (
 	"math/rand"
 	"net"
+	"sync"
 	"time"
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/Exp"
@@ -16,7 +17,8 @@ import (
 )
 
 var (
-	randSeed = 0
+	randSeed     = 0
+	randSeedLock sync.Mutex
 )
 
 func OnHostGameEnd(p *PacketData, client net.Conn) {
@@ -253,12 +255,14 @@ func GetGainPoints(u *User, bot uint8) uint64 {
 }
 
 func GetRandomBox() uint32 {
+	randSeedLock.Lock()
 	rand.Seed(int64(randSeed) + time.Now().UnixNano())
 	idx := rand.Intn(len(BoxIDs))
 	randSeed++
 	if randSeed > 10000 {
 		randSeed = 0
 	}
+	randSeedLock.Unlock()
 	return BoxIDs[idx]
 }
 

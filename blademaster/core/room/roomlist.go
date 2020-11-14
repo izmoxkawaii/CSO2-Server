@@ -114,6 +114,7 @@ func BuildRoomList(seq *uint8, chl *ChannelInfo) []byte {
 	)
 	buf := make([]byte, 2)
 	tempoffset := 0
+	chl.ChannelMutex.Lock()
 	WriteUint16(&buf, chl.RoomNum, &tempoffset)
 	for _, v := range chl.Rooms {
 		if v == nil {
@@ -181,5 +182,6 @@ func BuildRoomList(seq *uint8, chl *ChannelInfo) []byte {
 		WriteUint8(&roombuf, v.Setting.Difficulty, &offset)
 		buf = BytesCombine(buf, roombuf[:offset])
 	}
+	chl.ChannelMutex.Unlock()
 	return BytesCombine(rst, buf)
 }
