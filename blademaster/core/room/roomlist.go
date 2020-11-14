@@ -68,8 +68,12 @@ func OnBroadcastRoomList(chlsrvid uint8, chlid uint8, u *User) {
 	for k, v := range chl.Rooms {
 		num, orgnum := 0, 0
 		v.RoomMutex.Lock()
-		for _, k := range v.Users {
-			if k != nil {
+		for i, user := range v.Users {
+			if user.GetUserRoomID() != v.Id {
+				delete(v.Users, i)
+				continue
+			}
+			if user != nil {
 				num++
 			}
 		}
