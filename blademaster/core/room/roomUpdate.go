@@ -30,7 +30,7 @@ func OnUpdateRoom(p *PacketData, client net.Conn) {
 		uPtr.GetUserRoomID())
 	if curroom == nil ||
 		curroom.Id <= 0 {
-		DebugInfo(2, "Error : User:", uPtr.UserName, "try to update a null room but in server !")
+		DebugInfo(2, "Error : User:", uPtr.UserName, "try to update a null room in server !")
 		return
 	}
 	if curroom.HostUserID != uPtr.Userid {

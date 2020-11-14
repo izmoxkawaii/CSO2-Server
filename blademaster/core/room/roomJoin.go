@@ -27,6 +27,7 @@ func OnJoinRoom(p *PacketData, client net.Conn) {
 	//检索玩家房间
 	if uPtr.CurrentRoomId != 0 {
 		DebugInfo(2, "Error : User", uPtr.UserName, "try to join room but in another room !")
+		OnLeaveRoom(uPtr.CurrentConnection, false)
 		return
 	}
 	//找到对应房间

@@ -322,6 +322,7 @@ func (rm Room) GetFreeSlots() int {
 
 func (rm *Room) JoinUser(u *User) bool {
 	if rm == nil {
+		DebugInfo(2, "Error : Cant add User", u.UserName, "to a null room")
 		return false
 	}
 	destTeam := rm.FindDesirableTeam()

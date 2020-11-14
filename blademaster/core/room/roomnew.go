@@ -27,7 +27,7 @@ func OnNewRoom(p *PacketData, client net.Conn) {
 	//检索玩家当前房间
 	if uPtr.CurrentRoomId > 0 {
 		DebugInfo(2, "Error :", uPtr.UserName, "request a new room but already in a room!")
-		uPtr.QuitRoom()
+		OnLeaveRoom(uPtr.CurrentConnection, false)
 		return
 	}
 	//创建房间
