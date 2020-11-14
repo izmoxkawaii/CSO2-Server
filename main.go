@@ -145,6 +145,9 @@ func main() {
 	FullInventoryReply = BuildFullInventoryInfo()
 	InitBoxReply()
 	InitCampaignReward()
+	if Conf.EnableShop == 1 {
+		InitShopReply()
+	}
 
 	//read locales
 	Locales.InitMotd(path)
@@ -354,8 +357,8 @@ func RecvMessage(client net.Conn) {
 			OnMail(&dataPacket, client)
 		case PacketTypeSupply:
 			OnSupplyRequest(&dataPacket, client)
-		case PacketTypePointLotto:
-			OnPointLotto(&dataPacket, client)
+		case PacketTypeUseItem:
+			OnUseItem(&dataPacket, client)
 		default:
 			DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String())
 			//DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String(), dataPacket.Data)

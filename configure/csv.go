@@ -17,6 +17,7 @@ const (
 	BoxCSV         = "/CSO2-Server/assert/cstrike/scripts/supplyList.csv"
 	VipCSV         = "/CSO2-Server/assert/cstrike/scripts/vip_info.csv"
 	DefaultItemCSV = "/CSO2-Server/assert/cstrike/scripts/defaultItemList.csv"
+	ShopItemCSV    = "/CSO2-Server/assert/cstrike/scripts/shop.csv"
 )
 
 type ItemData struct {
@@ -56,11 +57,18 @@ type BoxItem struct {
 	Value    int
 }
 
+type ShopItem struct {
+	ItemID   uint32
+	Price    uint32
+	Currency uint8
+}
+
 var (
-	ItemList   = make(map[uint32]ItemData)
-	UnlockList = make(map[uint32]UnlockData)
-	BoxList    = make(map[uint32]BoxData)
-	BoxIDs     = []uint32{}
+	ItemList     = make(map[uint32]ItemData)
+	UnlockList   = make(map[uint32]UnlockData)
+	BoxList      = make(map[uint32]BoxData)
+	BoxIDs       = []uint32{}
+	ShopItemList = []ShopItem{}
 )
 
 func InitCSV(path string) {
@@ -69,6 +77,9 @@ func InitCSV(path string) {
 	readUnlockList(path)
 	readBoxList(path)
 	readDefaultItemList(path)
+	if Conf.EnableShop == 1 {
+		readShopItemList(path)
+	}
 }
 
 func readWeaponList(path string) {
@@ -299,6 +310,44 @@ func readDefaultItemList(path string) {
 			}
 			item := UserInventoryItem{uint32(itemid), uint16(count)}
 			DefaultInventoryItem = append(DefaultInventoryItem, item)
+		} else {
+			continue
+		}
+	}
+}
+
+func readShopItemList(path string) {
+	//读取数据
+	filepath := path + ShopItemCSV
+
+	file, err := os.Open(filepath)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	for {
+		record, err := reader.Read()
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			panic(err)
+		}
+		if err == nil {
+			itemid, err := strconv.Atoi(record[0])
+			if err != nil {
+				continue
+			}
+			price, err := strconv.Atoi(record[1])
+			if err != nil {
+				continue
+			}
+			currency, err := strconv.Atoi(record[2])
+			if err != nil {
+				continue
+			}
+			ShopItemList = append(ShopItemList, ShopItem{uint32(itemid), uint32(price), uint8(currency)})
 		} else {
 			continue
 		}

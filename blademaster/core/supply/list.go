@@ -44,7 +44,7 @@ func InitBoxReply() {
 		tmp := make([]byte, len(v.Items)*16+10)
 		offset = 0
 		WriteUint32(&tmp, v.BoxID, &offset)
-		WriteUint32(&tmp, 0, &offset) //nextOptIndex
+		WriteUint32(&tmp, v.BoxID, &offset) //nextOptIndex
 		WriteUint8(&tmp, uint8(len(v.Items)), &offset)
 		for _, item := range v.Items {
 			WriteUint32(&tmp, item.ItemID, &offset)

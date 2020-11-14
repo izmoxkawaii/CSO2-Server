@@ -100,7 +100,7 @@ var (
 	UnlockFullList = []UnlockItem{
 		UnlockItem{
 			UnlockItemList[0],
-			0x0B,
+			0x01,
 			0x01,
 			0x3E8,
 		},

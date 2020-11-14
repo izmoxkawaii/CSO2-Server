@@ -54,7 +54,7 @@ func OnPointLottoUse(p *PacketData, client net.Conn) {
 	point := UsePointLotto(lottoID)
 	uPtr.GetPoints(point)
 
-	rst = BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypePointLotto),
+	rst = BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeUseItem),
 		buildUsePoint(uint32(point)))
 	SendPacket(rst, uPtr.CurrentConnection)
 

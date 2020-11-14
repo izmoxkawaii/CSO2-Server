@@ -553,6 +553,47 @@ func (u *User) GetPoints(num uint64) {
 	}
 }
 
+func (u *User) UsePoints(num uint64) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Points < num {
+		return false
+	}
+	u.Points -= num
+	return true
+
+}
+
+func (u *User) UseCredits(num uint32) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Cash < num {
+		return false
+	}
+	u.Cash -= num
+	return true
+
+}
+
+func (u *User) UseMPoints(num uint32) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Mpoints < num {
+		return false
+	}
+	u.Mpoints -= num
+	return true
+}
+
 func (u *User) GetExp(num uint64) {
 	if u == nil {
 		return
