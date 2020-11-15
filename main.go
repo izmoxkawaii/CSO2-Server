@@ -23,12 +23,12 @@ import (
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/message"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/option"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/playerinfo"
-	. "github.com/KouKouChan/CSO2-Server/blademaster/core/pointlotto"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/quick"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/report"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/room"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/shop"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/supply"
+	. "github.com/KouKouChan/CSO2-Server/blademaster/core/useitem"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/user"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/version"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
@@ -46,7 +46,7 @@ import (
 
 var (
 	//SERVERVERSION 版本号
-	SERVERVERSION = "v0.3.15"
+	SERVERVERSION = "v0.4.0"
 	Redis         redis.Conn
 )
 

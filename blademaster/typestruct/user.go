@@ -747,9 +747,9 @@ func (u *User) Updated() {
 	u.CheckUpdate = 1
 }
 
-func (u *User) DecreaseItem(itemid uint32) (int, uint16) {
+func (u *User) DecreaseItem(itemid uint32) bool {
 	if u == nil {
-		return 0, 0
+		return false
 	}
 	u.UserMutex.Lock()
 	defer u.UserMutex.Unlock()
@@ -759,11 +759,11 @@ func (u *User) DecreaseItem(itemid uint32) (int, uint16) {
 			if u.Inventory.Items[k].Count < 0 {
 				u.Inventory.Items[k].Count = 0
 			}
-			count := u.Inventory.Items[k].Count
-			return k, count
+			//count := u.Inventory.Items[k].Count
+			return true
 		}
 	}
-	return 0, 0
+	return false
 }
 
 func (u *User) GetItemIDBySeq(seq uint16) uint32 {
