@@ -58,6 +58,7 @@ func OnLogin(seq *uint8, dataPacket *PacketData, client net.Conn) {
 		} else {
 			CountFailLogin(clientStr)
 			if IsLoginTenth(clientStr) {
+				DebugInfo(2, "Error : User", nu, "from", client.RemoteAddr().String(), "login failed in tenth !")
 				OnSendMessage(seq, client, MessageDialogBox, GAME_LOGIN_TENTH_FAILED)
 				CountTenMinutes(clientStr)
 			} else {

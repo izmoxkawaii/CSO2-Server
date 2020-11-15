@@ -3,6 +3,7 @@ itemid,itemname,num
 1002,Arctic,1
 1003,GIGN,1
 1004,SAS,1
+1,p228,1
 2,GLOCK18,1
 3,scout,1
 4,hegrenade,1
@@ -85,7 +86,6 @@ itemid,itemname,num
 143,xm8carbine,1
 120,qbz95,1
 104,m99,1
-1,p228,1
 25,sg552,1
 63,aek971,1
 62,scarl,1

@@ -553,6 +553,47 @@ func (u *User) GetPoints(num uint64) {
 	}
 }
 
+func (u *User) UsePoints(num uint64) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Points < num {
+		return false
+	}
+	u.Points -= num
+	return true
+
+}
+
+func (u *User) UseCredits(num uint32) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Cash < num {
+		return false
+	}
+	u.Cash -= num
+	return true
+
+}
+
+func (u *User) UseMPoints(num uint32) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Mpoints < num {
+		return false
+	}
+	u.Mpoints -= num
+	return true
+}
+
 func (u *User) GetExp(num uint64) {
 	if u == nil {
 		return
@@ -706,9 +747,9 @@ func (u *User) Updated() {
 	u.CheckUpdate = 1
 }
 
-func (u *User) DecreaseItem(itemid uint32) (int, uint16) {
+func (u *User) DecreaseItem(itemid uint32) bool {
 	if u == nil {
-		return 0, 0
+		return false
 	}
 	u.UserMutex.Lock()
 	defer u.UserMutex.Unlock()
@@ -718,11 +759,11 @@ func (u *User) DecreaseItem(itemid uint32) (int, uint16) {
 			if u.Inventory.Items[k].Count < 0 {
 				u.Inventory.Items[k].Count = 0
 			}
-			count := u.Inventory.Items[k].Count
-			return k, count
+			//count := u.Inventory.Items[k].Count
+			return true
 		}
 	}
-	return 0, 0
+	return false
 }
 
 func (u *User) GetItemIDBySeq(seq uint16) uint32 {

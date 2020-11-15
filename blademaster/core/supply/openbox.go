@@ -6,6 +6,7 @@ import (
 	"time"
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/inventory"
+	. "github.com/KouKouChan/CSO2-Server/blademaster/core/message"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
 	. "github.com/KouKouChan/CSO2-Server/configure"
 	. "github.com/KouKouChan/CSO2-Server/kerlong"
@@ -28,7 +29,11 @@ func OnSupplyOpenBox(p *PacketData, client net.Conn) {
 		return
 	}
 	//发送数据
-	uPtr.DecreaseItem(pkt.BoxID)
+	if !uPtr.DecreaseItem(pkt.BoxID) {
+		OnSendMessage(uPtr.CurrentSequence, uPtr.CurrentConnection, MessageDialogBox, CSO2_UI_RAMDOMBOX_ALERT_000)
+		DebugInfo(2, "User", uPtr.UserName, "open box", BoxList[pkt.BoxID].BoxName, "failed")
+		return
+	}
 
 	rst := BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeInventory_Create),
 		BuildInventoryInfoSingle(uPtr, pkt.BoxID))
