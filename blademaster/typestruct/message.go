@@ -38,4 +38,5 @@ var (
 	CSO2_BUY_FAIL_NO_MILEAGE             = []byte("#CSO2_BUY_FAIL_NO_MILEAGE")
 	CSO2_BUY_SUCCEED                     = []byte("#CSO2_BUY_SUCCEED")
 	CSO2_BUY_FAIL_CN_0X12_DB_ERROR       = []byte("#CSO2_BUY_FAIL_CN_0X12_DB_ERROR")
+	CSO2_UI_RAMDOMBOX_ALERT_000          = []byte("#CSO2_UI_RAMDOMBOX_ALERT_000")
 )

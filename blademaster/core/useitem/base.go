@@ -1,4 +1,4 @@
-package pointlotto
+package useitem
 
 import (
 	"net"

@@ -49,12 +49,12 @@ func InitShopReply() {
 		WriteUint8(&tmp, 1, &offset)            //numopt
 		WriteUint32(&tmp, item.ItemID, &offset) //optidx
 		WriteUint16(&tmp, 0, &offset)           //quantity
-		WriteUint64(&tmp, 10000000, &offset)
+		WriteUint64(&tmp, 0, &offset)           //continue~day
 		WriteUint8(&tmp, 0, &offset)
 		WriteUint16(&tmp, 1, &offset)
 		WriteUint32(&tmp, item.Price, &offset)
 		WriteUint32(&tmp, item.Price, &offset)
-		WriteUint8(&tmp, 0, &offset)
+		WriteUint8(&tmp, 0, &offset) //discount
 		WriteUint32(&tmp, 0, &offset)
 		WriteUint32(&tmp, 0, &offset)
 		WriteUint8(&tmp, 0, &offset) //flags
