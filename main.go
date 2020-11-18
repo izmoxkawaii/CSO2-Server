@@ -234,7 +234,7 @@ func main() {
 
 	//Start Register Server
 	if Conf.EnableRegister != 0 {
-		go OnRegister()
+		go OnRegister(path)
 	}
 
 	//Start console server

@@ -35,7 +35,7 @@ var (
 	}
 )
 
-func OnRegister() {
+func OnRegister(path string) {
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println("Register server suffered a fault !")
@@ -46,8 +46,9 @@ func OnRegister() {
 	MailService.SenderMail = Conf.REGEmail
 	MailService.SenderCode = Conf.REGPassWord
 	MailService.SenderSMTP = Conf.REGSMTPaddr
-	http.HandleFunc("/", Register)
-	http.HandleFunc("/bg.jpg", OnJpg)
+	http.HandleFunc("/", OnMain)
+	http.HandleFunc("/download", OnDownload)
+	http.HandleFunc("/register", Register)
 	fmt.Println("Web is running at", "[AnyAdapter]:"+strconv.Itoa(int(Conf.REGPort)))
 	if Conf.EnableMail != 0 {
 		fmt.Println("Mail Service is enabled !")
@@ -58,6 +59,47 @@ func OnRegister() {
 	if err != nil {
 		DebugInfo(1, "ListenAndServe:", err)
 	}
+}
+
+func OnMain(w http.ResponseWriter, r *http.Request) {
+	//检查url是否合法
+	if strings.Contains(r.URL.Path, "..") {
+		DebugInfo(2, "Warning ! Illegal url detected from "+r.RemoteAddr)
+		return
+	}
+	//获取exe目录
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	//检索请求url
+	web_dir := path + "/CSO2-Server/assert/web"
+	if strings.HasPrefix(r.URL.Path, "/img/") ||
+		strings.HasPrefix(r.URL.Path, "/images/") ||
+		strings.HasPrefix(r.URL.Path, "/css/") ||
+		strings.HasPrefix(r.URL.Path, "/js/") ||
+		strings.HasPrefix(r.URL.Path, "/fonts/") ||
+		strings.HasPrefix(r.URL.Path, "/event/") {
+		file := web_dir + r.URL.Path
+		f, err := os.Open(file)
+		defer f.Close()
+
+		if err != nil && os.IsNotExist(err) {
+			DebugInfo(2, "Web file doesn't exist :", r.URL.Path)
+			return
+		}
+
+		http.ServeFile(w, r, file)
+		return
+	}
+	//发送主页面
+	t, err := template.ParseFiles(path + "/CSO2-Server/assert/web/index.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	t.Execute(w, WebToHtml{})
 }
 
 func Register(w http.ResponseWriter, r *http.Request) {
@@ -207,13 +249,13 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func OnJpg(w http.ResponseWriter, r *http.Request) {
+func OnDownload(w http.ResponseWriter, r *http.Request) {
 	path, err := GetExePath()
 	if err != nil {
 		DebugInfo(2, err)
 		return
 	}
-	file, err := os.Open(path + "/CSO2-Server/assert/web/bg.jpg")
+	file, err := os.Open(path + "/CSO2-Server/assert/web/download.html")
 	if err != nil {
 		DebugInfo(2, err)
 		return
