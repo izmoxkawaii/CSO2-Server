@@ -67,7 +67,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		DebugInfo(2, err)
 		return
 	}
-	t, err := template.ParseFiles(path + "/CSO2-Server/assert/register.html")
+	t, err := template.ParseFiles(path + "/CSO2-Server/assert/web/register.html")
 	if err != nil {
 		DebugInfo(2, err)
 		return
@@ -213,7 +213,7 @@ func OnJpg(w http.ResponseWriter, r *http.Request) {
 		DebugInfo(2, err)
 		return
 	}
-	file, err := os.Open(path + "/CSO2-Server/assert/bg.jpg")
+	file, err := os.Open(path + "/CSO2-Server/assert/web/bg.jpg")
 	if err != nil {
 		DebugInfo(2, err)
 		return
