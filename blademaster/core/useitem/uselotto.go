@@ -1,4 +1,4 @@
-package pointlotto
+package useitem
 
 import (
 	"math/rand"
@@ -6,6 +6,7 @@ import (
 	"time"
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/inventory"
+	. "github.com/KouKouChan/CSO2-Server/blademaster/core/message"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
 	. "github.com/KouKouChan/CSO2-Server/kerlong"
 	. "github.com/KouKouChan/CSO2-Server/servermanager"
@@ -45,7 +46,11 @@ func OnPointLottoUse(p *PacketData, client net.Conn) {
 		DebugInfo(2, "User", uPtr.UserName, "try using pointlotto but itemid is", lottoID)
 		return
 	}
-	uPtr.DecreaseItem(lottoID)
+	if !uPtr.DecreaseItem(lottoID) {
+		OnSendMessage(uPtr.CurrentSequence, uPtr.CurrentConnection, MessageDialogBox, CSO2_UI_RAMDOMBOX_ALERT_000)
+		DebugInfo(2, "User", uPtr.UserName, "use pointlotto", lottoID, "failed")
+		return
+	}
 
 	rst := BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeInventory_Create),
 		BuildInventoryInfoSingle(uPtr, lottoID))
@@ -54,7 +59,7 @@ func OnPointLottoUse(p *PacketData, client net.Conn) {
 	point := UsePointLotto(lottoID)
 	uPtr.GetPoints(point)
 
-	rst = BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypePointLotto),
+	rst = BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeUseItem),
 		buildUsePoint(uint32(point)))
 	SendPacket(rst, uPtr.CurrentConnection)
 

@@ -8,6 +8,8 @@ import (
 )
 
 const (
+	outshoplist = 0
+	buyitem     = 1
 	requestList = 3
 )
 
@@ -17,6 +19,8 @@ func OnShopRequest(p *PacketData, client net.Conn) {
 		switch pkt.InShopType {
 		case requestList:
 			OnShopList(p, client)
+		case buyitem:
+			OnShopBuyItem(p, client)
 		default:
 			DebugInfo(2, "Unknown shop packet", pkt.InShopType, "from", client.RemoteAddr().String(), p.Data)
 		}

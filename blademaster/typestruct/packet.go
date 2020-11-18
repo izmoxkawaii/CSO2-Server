@@ -55,6 +55,9 @@ type (
 	InShopPacket struct {
 		InShopType uint8
 	}
+	InShopBuyItemPacket struct {
+		ItemID uint32
+	}
 	InSupplyPacket struct {
 		Type uint8
 	}
@@ -437,7 +440,7 @@ const (
 	PacketTypeBan              = 74
 	PacketTypeOption           = 76
 	PacketTypeFavorite         = 77
-	PacketTypePointLotto       = 78
+	PacketTypeUseItem          = 78
 	PacketTypeQuickJoin        = 80
 	PacketTypeReport           = 83
 	PacketTypeSignature        = 85
@@ -550,6 +553,16 @@ func (p *PacketData) PraseShopPacket(dest *InShopPacket) bool {
 		return false
 	}
 	dest.InShopType = ReadUint8(p.Data, &p.CurOffset)
+	return true
+}
+
+func (p *PacketData) PraseShopBuyItemPacket(dest *InShopBuyItemPacket) bool {
+	// id + type + id = 6 bytes
+	if p.Length < 6 ||
+		dest == nil {
+		return false
+	}
+	dest.ItemID = ReadUint32(p.Data, &p.CurOffset)
 	return true
 }
 
