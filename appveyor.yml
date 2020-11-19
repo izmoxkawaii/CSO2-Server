@@ -42,11 +42,7 @@ test_script:
 
     7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\database\sqlite\cso2.db
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\assert\bg.jpg
-
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\assert\register.html
-
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\assert\cstrike\
+    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\assert\
 
     7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\locales\
 
