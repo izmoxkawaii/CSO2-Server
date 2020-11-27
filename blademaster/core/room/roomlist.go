@@ -67,7 +67,7 @@ func OnBroadcastRoomList(chlsrvid uint8, chlid uint8, u *User) {
 	chl.ChannelMutex.Lock()
 	for k, v := range chl.Rooms {
 		num, orgnum := 0, 0
-		v.RoomMutex.Lock()
+		//v.RoomMutex.Lock()
 		for i, user := range v.Users {
 			if user.GetUserRoomID() != v.Id {
 				delete(v.Users, i)
@@ -78,7 +78,7 @@ func OnBroadcastRoomList(chlsrvid uint8, chlid uint8, u *User) {
 			}
 		}
 		orgnum = int(v.NumPlayers)
-		v.RoomMutex.Unlock()
+		//v.RoomMutex.Unlock()
 		if num <= 0 {
 			DelChannelRoomQuick(k, chl)
 		} else if num != orgnum {
