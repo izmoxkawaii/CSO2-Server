@@ -243,6 +243,8 @@ func main() {
 	}
 
 	ch := make(chan os.Signal)
+	defer close(ch)
+
 	signal.Notify(ch, syscall.SIGINT)
 	_ = <-ch
 
