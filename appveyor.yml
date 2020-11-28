@@ -1,4 +1,4 @@
-version: 0.4.1-{build}
+version: 0.4.2-{build}
 pull_requests:
   do_not_increment_build_number: true
 image: Visual Studio 2015
@@ -28,25 +28,25 @@ test_script:
 
     cd ..
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z .\CSO2-Server.exe
+    7z a .\CSO2-Server-0.4.2-Win64.7z .\CSO2-Server.exe
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z .\local-console.bat
+    7z a .\CSO2-Server-0.4.2-Win64.7z .\local-console.bat
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z .\LICENSE
+    7z a .\CSO2-Server-0.4.2-Win64.7z .\LICENSE
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z .\README.md
+    7z a .\CSO2-Server-0.4.2-Win64.7z .\README.md
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z .\CodePage.md
+    7z a .\CSO2-Server-0.4.2-Win64.7z .\CodePage.md
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\configure\server.conf
+    7z a .\CSO2-Server-0.4.2-Win64.7z CSO2-Server\configure\server.conf
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\database\sqlite\cso2.db
+    7z a .\CSO2-Server-0.4.2-Win64.7z CSO2-Server\database\sqlite\cso2.db
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\assert\
+    7z a .\CSO2-Server-0.4.2-Win64.7z CSO2-Server\assert\
 
-    7z a .\CSO2-Server-0.4.1-Win64.7z CSO2-Server\locales\
+    7z a .\CSO2-Server-0.4.2-Win64.7z CSO2-Server\locales\
 
-    mv .\CSO2-Server-0.4.1-Win64.7z .\CSO2-Server\
+    mv .\CSO2-Server-0.4.2-Win64.7z .\CSO2-Server\
 
     cd .\CSO2-Server\
 artifacts:
