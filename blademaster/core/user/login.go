@@ -6,7 +6,6 @@ import (
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/inventory"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/message"
-	. "github.com/KouKouChan/CSO2-Server/blademaster/core/room"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
 	. "github.com/KouKouChan/CSO2-Server/configure"
 	. "github.com/KouKouChan/CSO2-Server/kerlong"
@@ -52,7 +51,6 @@ func OnLogin(seq *uint8, dataPacket *PacketData, client net.Conn) {
 		DebugInfo(2, "Error : User", nu, "from", client.RemoteAddr().String(), "already logged in !")
 		OnSendMessage(seq, client, MessageDialogBox, GAME_LOGIN_ALREADY)
 		OnSendMessage(u.CurrentSequence, u.CurrentConnection, MessageDialogBox, GAME_LOGIN_EXIT_FORCE)
-		OnLeaveRoom(u.CurrentConnection, true)
 		u.CurrentConnection.Close()
 		u.QuitChannel()
 	case USER_NOT_FOUND:
@@ -93,7 +91,7 @@ func OnLogin(seq *uint8, dataPacket *PacketData, client net.Conn) {
 	u.CurrentSequence = seq
 
 	//把用户加入用户管理器
-	if result != USER_ALREADY_LOGIN && !UsersManager.AddUser(u) {
+	if !UsersManager.AddUser(u) {
 		DebugInfo(2, "Error : User", nu, "from", client.RemoteAddr().String(), "login failed !")
 		return
 	}
