@@ -332,12 +332,13 @@ func (rm *Room) JoinUser(u *User) bool {
 	}
 	u.JoinRoom(rm.Id, uint8(destTeam))
 	rm.RoomMutex.Lock()
-	defer rm.RoomMutex.Unlock()
 	rm.NumPlayers++
 	if _, ok := rm.Users[u.Userid]; !ok {
 		rm.Users[u.Userid] = u
+		rm.RoomMutex.Unlock()
 		return true
 	}
+	rm.RoomMutex.Unlock()
 	u.QuitRoom()
 	return false
 }

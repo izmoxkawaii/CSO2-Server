@@ -74,8 +74,7 @@ func OnJoinRoom(p *PacketData, client net.Conn) {
 	//发送玩家状态
 	ustatus := BuildUserReadyStatus(uPtr)
 	uplayjoin := BuildPlayerJoin(uPtr)
-	rm.RoomMutex.Lock()
-	defer rm.RoomMutex.Unlock()
+
 	for _, v := range rm.Users {
 		rst = BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeRoom), BuildUserReadyStatus(v))
 		SendPacket(rst, uPtr.CurrentConnection)
@@ -88,6 +87,7 @@ func OnJoinRoom(p *PacketData, client net.Conn) {
 		}
 	}
 	DebugInfo(2, "Sync user status to all player in room", string(rm.Setting.RoomName), "id", rm.Id)
+	return
 }
 
 func BuildPlayerJoin(u *User) []byte {
