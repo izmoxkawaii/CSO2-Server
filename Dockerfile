@@ -1,15 +1,14 @@
 #镜像
 FROM ubuntu:18.04
-RUN apt-get update -y -q && apt-get upgrade -y -q 
 #安装工具
-RUN apt-get install gcc -y -q 
-RUN gcc --version
-RUN apt-get install wget -y -q 
-#安装go
-RUN wget https://studygolang.com/dl/golang/go1.15.4.linux-amd64.tar.gz
-RUN tar xfz go1.15.4.linux-amd64.tar.gz -C /usr/local
-#清理go文件
-RUN rm -f go1.15.4.linux-amd64.tar.gz
+RUN apt-get update -y -q && apt-get upgrade -y -q \
+    && apt-get install gcc -y -q  \
+    && gcc --version    \
+    && apt-get install wget -y -q 
+#安装go,清理go文件
+RUN wget https://studygolang.com/dl/golang/go1.15.4.linux-amd64.tar.gz \
+    && tar xfz go1.15.4.linux-amd64.tar.gz -C /usr/local    \
+    && rm -f go1.15.4.linux-amd64.tar.gz
 #设置环境变量
 ENV PATH $PATH:/usr/local/go/bin
 ENV GO111MODULE on
