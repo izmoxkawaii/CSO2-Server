@@ -413,6 +413,18 @@ func (u *User) UpdateCampaign(id uint16) {
 	u.Campaign = u.Campaign | id
 }
 
+func (u *User) CheckCampaign(id uint16) bool {
+	if u == nil {
+		return false
+	}
+	u.UserMutex.Lock()
+	defer u.UserMutex.Unlock()
+	if u.Campaign&id != 0 {
+		return true
+	}
+	return false
+}
+
 func (u *User) SetBuyMenu(menu UserBuyMenu) {
 	if u == nil {
 		return

@@ -246,7 +246,7 @@ func GetGainExp(u *User, bot uint8) uint64 {
 func GetGainPoints(u *User, bot uint8) uint64 {
 	if bot != 0 {
 		points := uint64(u.CurrentKillNum*100 + u.CurrentAssistNum*60 - u.CurrentDeathNum*30)
-		if points > 400 {
+		if points > 400 && points <= 15000 {
 			return points
 		} else if points > 15000 {
 			return 15000
