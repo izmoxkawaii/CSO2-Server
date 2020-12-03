@@ -50,7 +50,9 @@ func OnLogin(seq *uint8, dataPacket *PacketData, client net.Conn) {
 	case USER_ALREADY_LOGIN:
 		DebugInfo(2, "Error : User", nu, "from", client.RemoteAddr().String(), "already logged in !")
 		OnSendMessage(seq, client, MessageDialogBox, GAME_LOGIN_ALREADY)
-		return
+		OnSendMessage(u.CurrentSequence, u.CurrentConnection, MessageDialogBox, GAME_LOGIN_EXIT_FORCE)
+		u.CurrentConnection.Close()
+		u.QuitChannel()
 	case USER_NOT_FOUND:
 		DebugInfo(2, "Error : User", nu, "from", client.RemoteAddr().String(), "not registered !")
 		if IsLoginTenth(clientStr) {

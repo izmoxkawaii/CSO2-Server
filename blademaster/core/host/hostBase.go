@@ -67,7 +67,7 @@ func OnHost(p *PacketData, client net.Conn) {
 		//case HostUnk00:
 		//fmt.Println("TeamWinPacket", p.data[:p.datalen], "from", client.RemoteAddr().String())
 		default:
-			DebugInfo(2, "Unknown host packet", pkt.InHostType, "from", client.RemoteAddr().String(), p.Data)
+			DebugInfo(2, "Unknown host packet", pkt.InHostType, "from", client.RemoteAddr().String())
 		}
 	} else {
 		DebugInfo(2, "Error : Recived a illegal host packet from", client.RemoteAddr().String())

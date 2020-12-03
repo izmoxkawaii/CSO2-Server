@@ -46,7 +46,7 @@ import (
 
 var (
 	//SERVERVERSION 版本号
-	SERVERVERSION = "v0.4.0"
+	SERVERVERSION = "v0.4.2"
 	Redis         redis.Conn
 )
 
@@ -234,7 +234,7 @@ func main() {
 
 	//Start Register Server
 	if Conf.EnableRegister != 0 {
-		go OnRegister()
+		go OnRegister(path)
 	}
 
 	//Start console server
@@ -243,6 +243,8 @@ func main() {
 	}
 
 	ch := make(chan os.Signal)
+	defer close(ch)
+
 	signal.Notify(ch, syscall.SIGINT)
 	_ = <-ch
 

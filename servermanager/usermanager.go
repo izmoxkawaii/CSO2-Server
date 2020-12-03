@@ -63,7 +63,7 @@ func GetUserByLogin(account string, passwd []byte) (*User, int) {
 	//查看是否有已经登陆的同名用户
 	for _, v := range UsersManager.Users {
 		if v.UserName == account {
-			return nil, USER_ALREADY_LOGIN
+			return v, USER_ALREADY_LOGIN
 		}
 	}
 	//查看数据库是否有该用户

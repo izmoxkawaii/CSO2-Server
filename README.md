@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a4pj1il9li5s08k5?svg=true)](https://ci.appveyor.com/project/KouKouChan/cso2-server)
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![](https://img.shields.io/badge/version-v0.4.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
+[![](https://img.shields.io/badge/version-v0.4.2-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
 [English](./README.en.md) | [CodePage](./CodePage.md)
 
@@ -10,7 +10,7 @@
 
 ### 一、介绍
 
-CSOL2 服务器 v0.4.0
+CSOL2 服务器 v0.4.2
 
 数据库：SQLite    ，可使用相应工具打开.db文件
 
@@ -100,6 +100,7 @@ START ./bin/launcher.exe -masterip IP地址 -enablecustom -username 用户名 -p
 - 如果你需要注册，请修改server.conf文件，将EnableRegister值修改为1，然后你可以使用浏览器打开 localhost:1314 来注册，默认注册端口为1314。
 - 如果你想开启邮箱注册，那么你需要一个邮箱账号并且申请到了密钥，将密钥填入配置文件，同时开启EnableMail。
 - 如果你是和别人联机玩，那么即使你的电脑运行着服务端也**不能**在bat文件里填127.0.0.1，不然对方无法通过你的ip连接你。
+- 浏览器里可以输入localhost:1314进入web页面，点击右上角register进行注册。
 
 ### 十、Console使用方法
 
