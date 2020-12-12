@@ -125,7 +125,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			DebugInfo(2, Vcode)
 			Reglock.Lock()
 			MailService.TargetMail = addrtmp
-			MailService.Content = "Counter-Strike Online 2 Doğrulama Kodunuz<br>Your Counter-Strike Online 2 Verification Code<br>网上反恐精英2您的验证码<br>카운터-스트라이크 온라인2인증 코드  ：" + Vcode + "<br>" + ""
+			MailService.Content = "Counter-Strike Online 2 Doğrulama Kodunuz<br>Your Counter-Strike Online 2 Verification Code<br>网上反恐精英2您的验证码<br>카운터-스트라이크 온라인2인증 코드<br>> " + Vcode + " < " + " ^^"
 			Reglock.Unlock()
 			if SendEmailTO(&MailService) != nil {
 				wth.Tip = MAIL_ERROR
