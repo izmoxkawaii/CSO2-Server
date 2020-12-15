@@ -14,7 +14,7 @@ func ToConsoleHost(username, password, addr, port string) {
 	fmt.Println("")
 	fmt.Println("Command:")
 	fmt.Println("	userlist       			  :show how many users in server")
-	fmt.Println("	kick [username]       		  :kick user who called (username)")
+	fmt.Println("	kick [username]       		  :kick user")
 	fmt.Println("	save       			  :save all online user's data to database")
 	fmt.Println("	additem [username] [itemid]       :give user a item")
 	fmt.Println("	removeitem [username] [itemid]    :remove a item for user")

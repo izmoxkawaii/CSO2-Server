@@ -51,7 +51,7 @@ DataBase:SQLite
 
 ### 0x06 Build Env
 
-    Go 1.14.2
+    Go 1.15.3
     Use port:30001-TCP、30002-UDP
 
 ***If you want to set up a LAN or Internet Server, please open the port of firewall.***
