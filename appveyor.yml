@@ -40,7 +40,7 @@ test_script:
 
     7z a .\CSO2-Server-0.5.0-Win64.7z CSO2-Server\configure\server.conf
 
-    7z a .\CSO2-Server-0.5.0-Win64.7z CSO2-Server\database\sqlite\cso2.db
+    7z a .\CSO2-Server-0.5.0-Win64.7z CSO2-Server\database\sql\
 
     7z a .\CSO2-Server-0.5.0-Win64.7z CSO2-Server\assert\
 
