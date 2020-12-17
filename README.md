@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a4pj1il9li5s08k5?svg=true)](https://ci.appveyor.com/project/KouKouChan/cso2-server)
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![](https://img.shields.io/badge/version-v0.4.2-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
+[![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
 [English](./README.en.md) | [CodePage](./CodePage.md)
 
@@ -10,7 +10,7 @@
 
 ### 一、介绍
 
-CSOL2 服务器 v0.4.2
+CSOL2 服务器 v0.5.0
 
 默认需要浏览器打开**localhost:1314**网页注册账号，不需要输入邮箱和验证码
 

@@ -2,17 +2,11 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a4pj1il9li5s08k5?svg=true)](https://ci.appveyor.com/project/KouKouChan/cso2-server)
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![](https://img.shields.io/badge/version-v0.4.2-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
+[![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
 ### 0x01 Açıklama
 
 Counter-Strike Online 2 Sunucusu
-
-VeriTabanı:SQLite
-
-*Kendimi pratik etmek için ilk Golang projem.*
-
-***Bu proje şu anda tamamlanmamış !***
 
 ***L-leite tarafından [cso2-master-server](https://github.com/L-Leite/cso2-master-server) temel alınmıştır.***
 
