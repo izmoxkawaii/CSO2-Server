@@ -1,4 +1,4 @@
-package servermanager
+ package servermanager
 
 import (
 	"log"
@@ -63,21 +63,6 @@ func NewMainServer() ServerManager {
 	}
 	chl2 := NewChannelInfo([]byte(DefalutAverageChanneName2), chlsrv)
 	if !AddChannel(&chlsrv, &chl2) {
-		DebugInfo(2, "Error : Unable to initializing main server !")
-		log.Fatalln("")
-	}
-	chl3 := NewChannelInfo([]byte(DefalutAverageChanneName3), chlsrv)
-	if !AddChannel(&chlsrv, &chl3) {
-		DebugInfo(2, "Error : Unable to initializing main server !")
-		log.Fatalln("")
-	}
-	chl4 := NewChannelInfo([]byte(DefalutAverageChanneName4), chlsrv)
-	if !AddChannel(&chlsrv, &chl4) {
-		DebugInfo(2, "Error : Unable to initializing main server !")
-		log.Fatalln("")
-	}
-	chl5 := NewChannelInfo([]byte(DefalutAverageChanneName5), chlsrv)
-	if !AddChannel(&chlsrv, &chl5) {
 		DebugInfo(2, "Error : Unable to initializing main server !")
 		log.Fatalln("")
 	}
