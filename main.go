@@ -33,15 +33,15 @@ import (
 	. "github.com/KouKouChan/CSO2-Server/blademaster/core/version"
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
 	. "github.com/KouKouChan/CSO2-Server/configure"
+	. "github.com/KouKouChan/CSO2-Server/database/mysql"
 	. "github.com/KouKouChan/CSO2-Server/database/redis"
-	. "github.com/KouKouChan/CSO2-Server/database/sqlite"
 	. "github.com/KouKouChan/CSO2-Server/kerlong"
 	. "github.com/KouKouChan/CSO2-Server/kerlong/encode"
 	. "github.com/KouKouChan/CSO2-Server/servermanager"
 	. "github.com/KouKouChan/CSO2-Server/verbose"
 	. "github.com/KouKouChan/CSO2-Server/web/register"
 	"github.com/garyburd/redigo/redis"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
@@ -192,23 +192,43 @@ func main() {
 
 	//Init Database
 	if Conf.EnableDataBase != 0 {
-		DB, err = InitDatabase(path + "/CSO2-Server/database/sqlite/cso2.db")
+		DB, err = InitDatabase(path)
 		if err != nil {
-			fmt.Println("Init database failed !")
-			Conf.EnableDataBase = 0
+			fmt.Println("Init database failed !", err)
+
+			clearDB()
 		} else {
-			fmt.Println("Database connected !")
-			defer DB.Close()
+			fmt.Println("Checking database ...")
+			if err = CheckDataBaseTable(DB, path); err == nil {
+				DB.SetMaxIdleConns(5)
+				DB.SetMaxOpenConns(10)
+
+				fmt.Println("Database connected !")
+
+				if err = DB.Ping(); err != nil {
+					fmt.Println("Database connect failed !", err)
+					DB.Close()
+					clearDB()
+				} else {
+					defer DB.Close()
+				}
+
+			} else {
+				fmt.Println("Checking database failed !", err)
+				DB.Close()
+				clearDB()
+			}
 		}
+
 	} else {
-		DB = nil
+		clearDB()
 	}
 
 	//Init Redis
 	if Conf.EnableRedis != 0 {
 		Redis, err := InitRedis(Conf.RedisIP + ":" + strconv.Itoa(int(Conf.RedisPort)))
 		if err != nil {
-			fmt.Println("connect to redis server failed !")
+			fmt.Println("connect to redis server failed !", err)
 			Conf.EnableRedis = 0
 		} else {
 			fmt.Println("Redis server connected !")
@@ -409,6 +429,11 @@ func checkFolder(path string) {
 			fmt.Println("mkdir2 success!")
 		}
 	}
+}
+
+func clearDB() {
+	Conf.EnableDataBase = 0
+	DB = nil
 }
 
 // func generate(path string) {
