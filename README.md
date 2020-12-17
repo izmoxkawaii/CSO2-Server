@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
-[English](./README.en.md) | [CodePage](./CodePage.md)
+[English](./README.en.md) | [Turkish](./README.tr.md)  [CodePage](./CodePage.md)
 
 *声明：Counter-Strike Online 2 归 NEXON 所有 ，本程序仅用于学习之用*
 
