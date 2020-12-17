@@ -42,9 +42,32 @@ const (
 	MAXSERVERNUM        = 15
 	MAXCHANNELROOMNUM   = 0xFF
 	MAXROOMNUM          = 0xFFFF
-	DefalutServerName   = "CSO2-Server[1/1]"
-	DefalutChannelName1 = "CSO2-Channel[1/2]"
-	DefalutChannelName2 = "CSO2-Channel[2/2]"
+	DefalutNoviceServerName  = "Novice Server"
+	DefalutNoviceChanneName1 = "Channel 1"
+	DefalutNoviceChanneName2 = "Channel 2"
+	DefalutNoviceChanneName3 = "Channel 3"
+	DefalutNoviceChanneName4 = "Channel 4"
+	DefalutNoviceChanneName5 = "Channel 5"
+	
+	DefalutAverageServerName  = "Average Server"
+	DefalutAverageChanneName1 = "Channel 1"
+	DefalutAverageChanneName2 = "Channel 2"
+	
+	DefalutProfessionalServerName   = "Professional Server"
+	DefalutProfessionalChannelName1 = "Channel 1"
+	DefalutProfessionalChannelName2 = "Channel 2"
+	DefalutProfessionalChannelName3 = "Channel 3"
+	DefalutProfessionalChannelName4 = "Channel 4"
+	DefalutProfessionalChannelName5 = "Channel 5"
+	
+	DefalutBigCityServerName  = "BigCity Server"
+	DefalutBigCityChanneName1 = "Channel 1"
+	DefalutBigCityChanneName2 = "Channel 2"
+	
+	DefalutZombieServerName  = "Zombie Server"
+	DefalutZombieChanneName1 = "Channel 1"
+	DefalutZombieChanneName2 = "Channel 2"
+	
 
 	//貌似非3以外的都被客户端认为是战队频道
 	ChannelServerTypeNormal = 1
