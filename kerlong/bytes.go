@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"encoding/gob"
+	"io/ioutil"
 )
 
 //Encode 结构体转数组
@@ -331,4 +332,13 @@ func getnextval(str []byte, nextval []int) []int {
 		}
 	}
 	return nextval
+}
+
+func ReadStringFromFile(path string) string {
+	Bytes, err := ioutil.ReadFile(path)
+	if err != nil {
+		return ""
+	}
+
+	return string(Bytes)
 }

@@ -13,6 +13,10 @@ type CSO2Conf struct {
 	HolePunchPort    uint32
 	EnableRedis      uint32
 	EnableDataBase   uint32
+	DBUserName       string
+	DBpassword       string
+	DBaddress        string
+	DBport           string
 	MaxUsers         uint32
 	EnableShop       uint32
 	UnlockAllWeapons uint32
@@ -101,6 +105,10 @@ func (conf *CSO2Conf) InitConf(path string) {
 		fmt.Printf("Using default data ...\n")
 		conf.EnableRedis = 0
 		conf.EnableDataBase = 1
+		conf.DBUserName = "root"
+		conf.DBpassword = "123456"
+		conf.DBaddress = "localhost"
+		conf.DBport = "3306"
 		conf.MaxUsers = 0
 		conf.EnableShop = 0
 		conf.UnlockAllWeapons = 1
@@ -119,6 +127,10 @@ func (conf *CSO2Conf) InitConf(path string) {
 	}
 	conf.EnableRedis = ini_parser.IniGetUint32("Database", "EnableRedis")
 	conf.EnableDataBase = ini_parser.IniGetUint32("Database", "EnableDataBase")
+	conf.DBUserName = ini_parser.IniGetString("Database", "DBUserName")
+	conf.DBpassword = ini_parser.IniGetString("Database", "DBpassword")
+	conf.DBaddress = ini_parser.IniGetString("Database", "DBaddress")
+	conf.DBport = ini_parser.IniGetString("Database", "DBport")
 	conf.MaxUsers = ini_parser.IniGetUint32("Server", "MaxUsers")
 	if conf.MaxUsers < 0 {
 		conf.MaxUsers = 0
