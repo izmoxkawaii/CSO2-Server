@@ -40,14 +40,12 @@ import (
 	. "github.com/KouKouChan/CSO2-Server/servermanager"
 	. "github.com/KouKouChan/CSO2-Server/verbose"
 	. "github.com/KouKouChan/CSO2-Server/web/register"
-	"github.com/garyburd/redigo/redis"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
 	//SERVERVERSION 版本号
 	SERVERVERSION = "v0.5.0"
-	Redis         redis.Conn
 )
 
 func ReadHead(client net.Conn) ([]byte, bool) {
@@ -219,21 +217,16 @@ func main() {
 				clearDB()
 			}
 		}
-
-	} else {
-		clearDB()
-	}
-
-	//Init Redis
-	if Conf.EnableRedis != 0 {
-		Redis, err := InitRedis(Conf.RedisIP + ":" + strconv.Itoa(int(Conf.RedisPort)))
+		InitBloomFilter()
+		Redis, err = InitRedis(Conf.RedisIP + ":" + strconv.Itoa(int(Conf.RedisPort)))
 		if err != nil {
 			fmt.Println("connect to redis server failed !", err)
-			Conf.EnableRedis = 0
 		} else {
 			fmt.Println("Redis server connected !")
 			defer Redis.Close()
 		}
+	} else {
+		clearDB()
 	}
 
 	//Init converter

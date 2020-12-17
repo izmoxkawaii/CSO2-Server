@@ -10,13 +10,19 @@ import (
 	"sync"
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
+	. "github.com/KouKouChan/CSO2-Server/database/redis"
+	. "github.com/KouKouChan/CSO2-Server/kerlong"
 	. "github.com/KouKouChan/CSO2-Server/verbose"
+	"github.com/garyburd/redigo/redis"
 )
 
 var (
-	DB     *sql.DB
-	Dblock sync.Mutex
-	DBPath string
+	BFusername *BloomFilter
+	BFgamename *BloomFilter
+	DB         *sql.DB
+	Dblock     sync.Mutex
+	DBPath     string
+	Redis      redis.Conn
 )
 
 //从数据库中读取用户数据
@@ -34,40 +40,50 @@ func GetUserFromDatabase(loginname string, passwd []byte) (*User, int) {
 
 			Dblock.Unlock()
 
-			u.SetID(GetNewUserID())
-
 		} else {
 			return nil, USER_NOT_FOUND
 		}
 	} else {
-		sql := "SELECT * FROM UserData Where username = '" + loginname + "'"
-		rows, err := DB.Query(sql)
-		defer rows.Close()
-		if err != nil {
-			DebugInfo(1, "Searching User "+loginname+"'s data failed !")
-			return nil, USER_UNKOWN_ERROR
-		}
-
-		if rows.Next() {
-			rows.Scan(&u.Userid, &u.UserName, &u.IngameName, &u.Password, &u.UserMail, &bytes)
-		} else {
+		if !BFusername.Contains(loginname) {
 			return nil, USER_NOT_FOUND
 		}
 
+		if redisIsExistsUser(loginname) {
+			bytes, _ = redisGetUser(loginname)
+			DebugInfo(1, "Get User", loginname+"'s data from redis")
+		} else {
+			sql := "SELECT * FROM UserData Where username = '" + loginname + "'"
+			rows, err := DB.Query(sql)
+			defer rows.Close()
+			if err != nil {
+				DebugInfo(1, "Searching User "+loginname+"'s data failed !")
+				return nil, USER_UNKOWN_ERROR
+			}
+
+			if rows.Next() {
+				rows.Scan(&u.Userid, &u.UserName, &u.IngameName, &u.Password, &u.UserMail, &bytes)
+			} else {
+				return nil, USER_NOT_FOUND
+			}
+
+			redisAddUser(loginname, bytes)
+		}
 	}
 	err := json.Unmarshal(bytes, &u)
 	if err != nil {
-		DebugInfo(1, "Suffered a error while getting User", string(loginname)+"'s data !", err)
+		DebugInfo(1, "Suffered a error while getting User", loginname+"'s data !", err)
 		return nil, USER_UNKOWN_ERROR
 	}
 
 	//检查密码
-	str := fmt.Sprintf("%x", md5.Sum([]byte(string(loginname)+string(passwd))))
+	str := fmt.Sprintf("%x", md5.Sum([]byte(loginname+string(passwd))))
 	for i := 0; i < 32; i++ {
 		if str[i] != u.Password[i] {
 			return nil, USER_PASSWD_ERROR
 		}
 	}
+
+	u.SetID(GetNewUserID())
 
 	DebugInfo(1, "User", u.UserName, "data found !")
 
@@ -108,6 +124,9 @@ func AddUserToDB(u *User) error {
 		return err
 	}
 
+	BFusername.Add(u.UserName)
+	BFgamename.Add(u.IngameName)
+
 	return nil
 }
 
@@ -127,14 +146,17 @@ func UpdateUserToDB(u *User) error {
 		}
 		return nil
 	}
-	stmt, _ := DB.Prepare("UPDATE UserData set username=?,gamename=?,password=?,mail=?,data=? where uid=?")
+	stmt, _ := DB.Prepare("UPDATE UserData set gamename=?,password=?,mail=?,data=? where username=?")
 	defer stmt.Close()
 
-	_, err := stmt.Exec(u.UserName, u.IngameName, u.Password, u.UserMail, data, u.Userid)
+	_, err := stmt.Exec(u.IngameName, u.Password, u.UserMail, data, u.UserName)
 	if err != nil {
 		DebugInfo(1, "Update User", u.UserName, "data failed !")
 		return err
 	}
+
+	redisAddUser(u.UserName, data)
+
 	return nil
 }
 
@@ -169,6 +191,9 @@ func IsExistsUser(username []byte) bool {
 		}
 		return false
 	}
+	if !BFusername.Contains(string(username)) {
+		return false
+	}
 	sql := "SELECT * FROM UserData Where username = '" + string(username) + "'"
 	rows, err := DB.Query(sql)
 	defer rows.Close()
@@ -191,6 +216,9 @@ func IsExistsIngameName(name []byte) bool {
 		if rst {
 			return true
 		}
+		return false
+	}
+	if !BFgamename.Contains(string(name)) {
 		return false
 	}
 	sql := "SELECT * FROM UserData Where gamename = '" + string(name) + "'"
@@ -231,4 +259,45 @@ func SaveAllUsers() bool {
 		}
 	}
 	return true
+}
+
+func InitBloomFilter() bool {
+	if DB != nil {
+		fmt.Println("Initializing bloomfilter ...")
+		BFusername = NewBloomFilter(2<<24, []uint{7, 11, 13, 31, 37, 61})
+		BFgamename = NewBloomFilter(2<<24, []uint{7, 11, 13, 31, 37, 61})
+		query, err := DB.Prepare("SELECT username,gamename FROM UserData")
+		if err == nil {
+			defer query.Close()
+			rows, err := query.Query()
+			if err != nil {
+				DebugInfo(2, err)
+				return false
+			}
+			defer rows.Close()
+			var username string
+			var gamename string
+			for rows.Next() {
+				rows.Scan(&username, &gamename)
+				BFusername.Add(username)
+				BFgamename.Add(gamename)
+			}
+		}
+		return true
+	}
+	fmt.Println("Can't Initialize bloomfilter !")
+	return false
+}
+
+func redisIsExistsUser(username string) bool {
+	return RedisIsExist(Redis, "CSO2Server:Users:"+username)
+}
+
+func redisAddUser(username string, data []byte) bool {
+
+	return RedisSetVWithTime(Redis, "CSO2Server:Users:"+username, data, "1200")
+}
+
+func redisGetUser(username string) ([]byte, error) {
+	return RedisGetVBytes(Redis, "CSO2Server:Users:"+username)
 }

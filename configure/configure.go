@@ -11,7 +11,6 @@ import (
 type CSO2Conf struct {
 	PORT             uint32
 	HolePunchPort    uint32
-	EnableRedis      uint32
 	EnableDataBase   uint32
 	DBUserName       string
 	DBpassword       string
@@ -103,7 +102,6 @@ func (conf *CSO2Conf) InitConf(path string) {
 	if err := ini_parser.LoadIni(file); err != nil {
 		fmt.Printf("Loading config file error[%s]\n", err.Error())
 		fmt.Printf("Using default data ...\n")
-		conf.EnableRedis = 0
 		conf.EnableDataBase = 1
 		conf.DBUserName = "root"
 		conf.DBpassword = "123456"
@@ -125,7 +123,6 @@ func (conf *CSO2Conf) InitConf(path string) {
 		conf.EnableConsole = 0
 		return
 	}
-	conf.EnableRedis = ini_parser.IniGetUint32("Database", "EnableRedis")
 	conf.EnableDataBase = ini_parser.IniGetUint32("Database", "EnableDataBase")
 	conf.DBUserName = ini_parser.IniGetString("Database", "DBUserName")
 	conf.DBpassword = ini_parser.IniGetString("Database", "DBpassword")
