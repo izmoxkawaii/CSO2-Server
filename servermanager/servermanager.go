@@ -25,14 +25,127 @@ func NewMainServer() ServerManager {
 		0, //初始化，默认数量为0
 		[]*ChannelServer{},
 	}
-	chlsrv := NewChannelServer([]byte(DefalutServerName))
-	chl1 := NewChannelInfo([]byte(DefalutChannelName1), chlsrv)
+	//Novice Server
+	chlsrv := NewChannelServer([]byte(DefalutNoviceServerName))
+	chl := NewChannelInfo([]byte(DefalutNoviceChanneName1), chlsrv)
 	if !AddChannel(&chlsrv, &chl1) ||
 		!AddChannelServer(&srvmgr, &chlsrv) {
 		DebugInfo(2, "Error : Unable to initializing main server !")
 		log.Fatalln("")
 	}
-	chl2 := NewChannelInfo([]byte(DefalutChannelName2), chlsrv)
+	chl2 := NewChannelInfo([]byte(DefalutNoviceChanneName2), chlsrv)
+	if !AddChannel(&chlsrv, &chl2) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl3 := NewChannelInfo([]byte(DefalutNoviceChanneName3), chlsrv)
+	if !AddChannel(&chlsrv, &chl3) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl4 := NewChannelInfo([]byte(DefalutNoviceChanneName4), chlsrv)
+	if !AddChannel(&chlsrv, &chl4) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl5 := NewChannelInfo([]byte(DefalutNoviceChanneName5), chlsrv)
+	if !AddChannel(&chlsrv, &chl5) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	//Average Server
+	chlsrv := NewChannelServer([]byte(DefalutAverageServerName))
+	chl1 := NewChannelInfo([]byte(DefalutAverageChanneName1), chlsrv)
+	if !AddChannel(&chlsrv, &chl1) ||
+		!AddChannelServer(&srvmgr, &chlsrv) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl2 := NewChannelInfo([]byte(DefalutAverageChanneName2), chlsrv)
+	if !AddChannel(&chlsrv, &chl2) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl3 := NewChannelInfo([]byte(DefalutAverageChanneName3), chlsrv)
+	if !AddChannel(&chlsrv, &chl3) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl4 := NewChannelInfo([]byte(DefalutAverageChanneName4), chlsrv)
+	if !AddChannel(&chlsrv, &chl4) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl5 := NewChannelInfo([]byte(DefalutAverageChanneName5), chlsrv)
+	if !AddChannel(&chlsrv, &chl5) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	//Professional Server
+	chlsrv := NewChannelServer([]byte(DefalutProfessionalServerName))
+	chl1 := NewChannelInfo([]byte(DefalutProfessionalChannelName1), chlsrv)
+	if !AddChannel(&chlsrv, &chl1) ||
+		!AddChannelServer(&srvmgr, &chlsrv) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl2 := NewChannelInfo([]byte(DefalutProfessionalChannelName2), chlsrv)
+	if !AddChannel(&chlsrv, &chl2) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl3 := NewChannelInfo([]byte(DefalutProfessionalChannelName3), chlsrv)
+	if !AddChannel(&chlsrv, &chl3) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl4 := NewChannelInfo([]byte(DefalutProfessionalChannelName4), chlsrv)
+	if !AddChannel(&chlsrv, &chl4) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl5 := NewChannelInfo([]byte(DefalutProfessionalChannelName5), chlsrv)
+	if !AddChannel(&chlsrv, &chl5) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	//BigCity Server
+	chlsrv := NewChannelServer([]byte(DefalutBigCityServerName))
+	chl1 := NewChannelInfo([]byte(DefalutBigCityChanneName1), chlsrv)
+	if !AddChannel(&chlsrv, &chl1) ||
+		!AddChannelServer(&srvmgr, &chlsrv) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl2 := NewChannelInfo([]byte(DefalutBigCityChanneName2), chlsrv)
+	if !AddChannel(&chlsrv, &chl2) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl3 := NewChannelInfo([]byte(DefalutBigCityChanneName3), chlsrv)
+	if !AddChannel(&chlsrv, &chl3) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl4 := NewChannelInfo([]byte(DefalutBigCityChanneName4), chlsrv)
+	if !AddChannel(&chlsrv, &chl4) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl5 := NewChannelInfo([]byte(DefalutBigCityChanneName5), chlsrv)
+	if !AddChannel(&chlsrv, &chl5) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	//Zombie Mode Server
+	chlsrv := NewChannelServer([]byte(DefalutZombieServerName))
+	chl1 := NewChannelInfo([]byte(DefalutZombieChanneName1), chlsrv)
+	if !AddChannel(&chlsrv, &chl1) ||
+		!AddChannelServer(&srvmgr, &chlsrv) {
+		DebugInfo(2, "Error : Unable to initializing main server !")
+		log.Fatalln("")
+	}
+	chl2 := NewChannelInfo([]byte(DefalutZombieChanneName2), chlsrv)
 	if !AddChannel(&chlsrv, &chl2) {
 		DebugInfo(2, "Error : Unable to initializing main server !")
 		log.Fatalln("")
