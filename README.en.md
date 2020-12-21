@@ -4,6 +4,8 @@
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
+***To Download Latest Update For The Game [21.12.2020_CSO2_21_12_2020_Update_2GB_or_high.rar](https://drive.google.com/file/d/1tOYUGa3vOxgJoHPrYA7BoejwAeQ-N8sg/view?usp=sharing) Good Games.***
+
 ### 0x01 Description
 
 Counter-Strike Online 2 Server
