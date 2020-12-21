@@ -24,8 +24,8 @@ CSOL2 服务器 v0.5.0
 
 欢迎大家帮忙本地化文件，具体见下方第五部分。
 ### 服务器清单
-[CSO2 KR](https://discord.gg/N5UUhKxD5y)
-<
+[CSO2 KR](https://discord.gg/N5UUhKxD5y)\
+###
 [CSO2 TR](https://discord.gg/8KShEyD3Ca)
 
 
