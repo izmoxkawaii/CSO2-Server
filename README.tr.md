@@ -4,11 +4,14 @@
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
+***Oyun İçin Yapılan Son Güncellemeyi İndirmek İçin [21.12.2020_CSO2_21_12_2020_Update_2GB_or_high.rar](https://drive.google.com/file/d/1tOYUGa3vOxgJoHPrYA7BoejwAeQ-N8sg/view?usp=sharing) İyi Oyunlar.***
+
 ### 0x01 Açıklama
 
 Counter-Strike Online 2 Sunucusu
 
 ***L-leite tarafından [cso2-master-server](https://github.com/L-Leite/cso2-master-server) temel alınmıştır.***
+
 
 ***Tüm Lokasyon Dosylaları Olur！3. Bölüme Bakın.***
 
