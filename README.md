@@ -6,6 +6,9 @@
 
 [English](./README.en.md) | [Turkish](./README.tr.md) | [CodePage](./CodePage.md)
 
+***要下载游戏的最新更新 [21.12.2020_CSO2_21_12_2020_Update_2GB_or_high.rar](https://drive.google.com/file/d/1tOYUGa3vOxgJoHPrYA7BoejwAeQ-N8sg/view?usp=sharing)
+
+
 *声明：Counter-Strike Online 2 归 NEXON 所有 ，本程序仅用于学习之用*
 
 ### 一、介绍
