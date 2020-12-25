@@ -45,7 +45,7 @@ Counter-Strike Online 2 Sunucusu
 
 ### 0x06 Aşağıdaki Gereksinimler
 
-    Go 1.15.3
+    Go 1.15.6
     Bağlantı Noktaları:30001-TCP、30002-UDP
 
 ***Bir LAN veya İnternet Sunucusu kurmak istiyorsanız, lütfen güvenlik duvarı bağlantı noktasını açın.***
