@@ -23,10 +23,16 @@ CSOL2 服务器 v0.5.0
 如果大家有什么建议或问题，欢迎提出。
 
 欢迎大家帮忙本地化文件，具体见下方第五部分。
-### 服务器清单
-[CSO2 KR](https://discord.gg/N5UUhKxD5y)
-###
-[CSO2 TR](https://discord.gg/8KShEyD3Ca)
+
+**使用该服务端的服务器：**
+
+CSO2-CN QQ-group 948725573
+
+CSO2-KR https://discord.gg/N5UUhKxD5y
+
+CSO2-TR https://discord.gg/8KShEyD3Ca
+
+CSO2-TW https://discord.gg/CBqcPP5
 
 
 ### 二、基本已完成的功能
