@@ -80,6 +80,8 @@ func OnMain(w http.ResponseWriter, r *http.Request) {
 		strings.HasPrefix(r.URL.Path, "/css/") ||
 		strings.HasPrefix(r.URL.Path, "/js/") ||
 		strings.HasPrefix(r.URL.Path, "/fonts/") ||
+		strings.HasPrefix(r.URL.Path, "/update/") ||
+		strings.HasPrefix(r.URL.Path, "/notice/") ||
 		strings.HasPrefix(r.URL.Path, "/event/") {
 		file := web_dir + r.URL.Path
 		f, err := os.Open(file)
