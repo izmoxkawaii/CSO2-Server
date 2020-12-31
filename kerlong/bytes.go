@@ -108,6 +108,17 @@ func WriteString(dest *[]byte, src []byte, offset *int) int {
 	return l + 1
 }
 
+//WriteString 写入字符串，不包括长度
+func WriteStringWithNull(dest *[]byte, src []byte, offset *int) int {
+	l := len(src)
+	for i := 0; i < l; i++ {
+		(*dest)[*offset] = src[i]
+		(*offset)++
+	}
+	WriteUint8(dest, 0x00, offset)
+	return l + 1
+}
+
 //WriteLongString 写入字符串，包括2字节长度
 func WriteLongString(dest *[]byte, src []byte, offset *int) int {
 	l := len(src)
