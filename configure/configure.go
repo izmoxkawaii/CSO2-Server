@@ -128,6 +128,8 @@ func (conf *CSO2Conf) InitConf(path string) {
 	conf.DBpassword = ini_parser.IniGetString("Database", "DBpassword")
 	conf.DBaddress = ini_parser.IniGetString("Database", "DBaddress")
 	conf.DBport = ini_parser.IniGetString("Database", "DBport")
+	conf.RedisIP = ini_parser.IniGetString("Database", "RedisIP")
+	conf.RedisPort = ini_parser.IniGetUint32("Database", "RedisPort")
 	conf.MaxUsers = ini_parser.IniGetUint32("Server", "MaxUsers")
 	if conf.MaxUsers < 0 {
 		conf.MaxUsers = 0
@@ -136,8 +138,6 @@ func (conf *CSO2Conf) InitConf(path string) {
 	conf.UnlockAllWeapons = ini_parser.IniGetUint32("Server", "UnlockAllWeapons")
 	conf.PORT = ini_parser.IniGetUint32("Server", "TCPPort")
 	conf.HolePunchPort = ini_parser.IniGetUint32("Server", "UDPPort")
-	conf.RedisIP = ini_parser.IniGetString("Server", "RedisIP")
-	conf.RedisPort = ini_parser.IniGetUint32("Server", "RedisPort")
 	conf.DebugLevel = ini_parser.IniGetUint32("Debug", "DebugLevel")
 	if conf.DebugLevel > 2 || conf.DebugLevel < 0 {
 		conf.DebugLevel = 2
