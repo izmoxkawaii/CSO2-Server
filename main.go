@@ -304,7 +304,7 @@ func RecvMessage(client net.Conn) {
 			OnSendMessage(&seq, client, MessageDialogBox, GAME_SERVER_ERROR)
 			fmt.Println("Client", client.RemoteAddr().String(), "suffered a fault !")
 			fmt.Println(err)
-			fmt.Println("Dump data", dataPacket.Data, "offset:", dataPacket.CurOffset)
+			fmt.Println("dump data", dataPacket.Data, "offset:", dataPacket.CurOffset)
 			fmt.Println("Fault end!")
 			OnLeaveRoom(client, true)
 			DelUserWithConn(client)
