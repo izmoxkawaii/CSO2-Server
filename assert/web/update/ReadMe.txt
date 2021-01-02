@@ -16,4 +16,4 @@ Bu Klasör Yalnızca Oyun Başlatıcınız İçin Mevcuttur ve Oyununuzu Bu Dizi
 Make sure your Update File is .dat this way it will update faster
 \Folder\Exe Name:Exe Size:Exe Reading Type
 Sample:
-\Bin\BugTrapU.dll:000000000000000000000000:392264
+\Bin\launcher.exe:4FF779D5CF903A55E6E9D93F96A396DC:10748416
