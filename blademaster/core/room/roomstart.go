@@ -45,29 +45,6 @@ func OnGameStart(p *PacketData, client net.Conn) {
 			if v.Userid != uPtr.Userid {
 				rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), setting)
 				SendPacket(rst, v.CurrentConnection)
-				if v.IsUserReady() {
-					v.ResetAssistNum()
-					v.ResetKillNum()
-					v.ResetDeadNum()
-					v.SetUserIngame(true)
-					//给主机发送其他人的数据
-					rst = UDPBuild(uPtr.CurrentSequence, 0, v.Userid, v.NetInfo.ExternalIpAddress, v.NetInfo.ExternalClientPort)
-					SendPacket(rst, uPtr.CurrentConnection)
-					//连接到主机
-					rst = UDPBuild(v.CurrentSequence, 1, uPtr.Userid, uPtr.NetInfo.ExternalIpAddress, uPtr.NetInfo.ExternalServerPort)
-					SendPacket(rst, v.CurrentConnection)
-					//加入主机
-					rst = BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeHost), BuildJoinHost(uPtr.Userid))
-					SendPacket(rst, v.CurrentConnection)
-				}
-			}
-		}
-		//给每个人发送房间内所有人的准备状态
-		for _, v := range rm.Users {
-			temp := BuildUserReadyStatus(v)
-			for _, k := range rm.Users {
-				rst := BytesCombine(BuildHeader(k.CurrentSequence, PacketTypeRoom), temp)
-				SendPacket(rst, k.CurrentConnection)
 			}
 		}
 		//主机开始游戏

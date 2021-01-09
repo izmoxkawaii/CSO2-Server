@@ -36,6 +36,8 @@ func OnHost(p *PacketData, client net.Conn) {
 	var pkt InHostPacket
 	if p.PraseHostPacket(&pkt) {
 		switch pkt.InHostType {
+		case GameStart:
+			OnHostGameStart(client)
 		case GameData:
 			OnHostDataPacket(p, client)
 		case OnGameEnd:
