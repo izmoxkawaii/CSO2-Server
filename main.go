@@ -376,7 +376,6 @@ func RecvMessage(client net.Conn) {
 			OnUseItem(&dataPacket, client)
 		default:
 			DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String())
-			//DebugInfo(2, "Unknown packet", dataPacket.Id, "from", client.RemoteAddr().String(), dataPacket.Data)
 		}
 	}
 

@@ -1,6 +1,7 @@
 package room
 
 import (
+	"log"
 	"net"
 
 	. "github.com/KouKouChan/CSO2-Server/blademaster/typestruct"
@@ -35,13 +36,8 @@ func OnToggleReady(p *PacketData, client net.Conn) {
 		DebugInfo(2, "Error : User", uPtr.UserName, "try to toggle but in another room !")
 		return
 	}
-	// if uPtr.currentIsIngame {
-	// 	log.Println("Error : User", string(uPtr.username), "try to toggle but is ingame !")
-	// 	return
-	// }
-	u := curroom.RoomGetUser(uPtr.Userid)
-	if u == nil {
-		DebugInfo(2, "Error : User", uPtr.UserName, "try to toggle but in null in room !")
+	if uPtr.CurrentIsIngame {
+		log.Println("Error : User", uPtr.UserName, "try to toggle but is ingame !")
 		return
 	}
 	//设置新的状态
@@ -51,7 +47,6 @@ func OnToggleReady(p *PacketData, client net.Conn) {
 	} else {
 		uPtr.SetUserStatus(UserReady)
 		DebugInfo(2, "User", uPtr.UserName, "readied in room", string(curroom.Setting.RoomName), "id", curroom.Id)
-
 	}
 	//对房间所有玩家发送该玩家的状态
 	ustatus := BuildUserReadyStatus(uPtr)

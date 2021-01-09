@@ -38,7 +38,6 @@ type CSO2Conf struct {
 }
 
 type CSO2Locales struct {
-	GAME_ROOM_LEAVE_EARLY       string
 	GAME_SERVER_ERROR           string
 	GAME_LOGIN_ALREADY          string
 	GAME_LOGIN_EXIT_FORCE       string
@@ -169,7 +168,6 @@ func (locales *CSO2Locales) InitLocales(path string) bool {
 		fmt.Printf("Using default data ...\n")
 		return false
 	}
-	locales.GAME_ROOM_LEAVE_EARLY = ini_parser.IniGetString("System", "GAME_ROOM_LEAVE_EARLY")
 	locales.GAME_SERVER_ERROR = ini_parser.IniGetString("System", "GAME_SERVER_ERROR")
 	locales.GAME_LOGIN_ALREADY = ini_parser.IniGetString("System", "GAME_LOGIN_ALREADY")
 	locales.GAME_LOGIN_EXIT_FORCE = ini_parser.IniGetString("System", "GAME_LOGIN_EXIT_FORCE")
@@ -216,7 +214,6 @@ func (locales *CSO2Locales) InitMotd(path string) {
 
 func SetLocales() {
 	fmt.Printf("Setting locale < " + Conf.LocaleFile + " > ...\n")
-	GAME_ROOM_LEAVE_EARLY = []byte(Locales.GAME_ROOM_LEAVE_EARLY)
 	GAME_SERVER_ERROR = []byte(Locales.GAME_SERVER_ERROR)
 	GAME_LOGIN_ALREADY = []byte(Locales.GAME_LOGIN_ALREADY)
 	GAME_LOGIN_EXIT_FORCE = []byte(Locales.GAME_LOGIN_EXIT_FORCE)

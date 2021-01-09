@@ -10,7 +10,6 @@ const (
 )
 
 var (
-	GAME_ROOM_LEAVE_EARLY                = []byte("你因提前退出而被扣除1000Points!")
 	GAME_SERVER_ERROR                    = []byte("你与服务端的连接遭遇到不可恢复性错误，请联系服务器管理员并提供报错信息以便管理员查找和修复错误！")
 	GAME_LOGIN_ALREADY                   = []byte("您的账号当前已经有人登录！如果你的账号已泄露请联系管理员！")
 	GAME_LOGIN_EXIT_FORCE                = []byte("您的账号当前有人登录！您已被强制退出！")
@@ -40,4 +39,5 @@ var (
 	CSO2_BUY_SUCCEED                     = []byte("#CSO2_BUY_SUCCEED")
 	CSO2_BUY_FAIL_CN_0X12_DB_ERROR       = []byte("#CSO2_BUY_FAIL_CN_0X12_DB_ERROR")
 	CSO2_UI_RAMDOMBOX_ALERT_000          = []byte("#CSO2_UI_RAMDOMBOX_ALERT_000")
+	CSO2_POPUP_ROOM_LEAVE_PENALTY        = []byte("CSO2_POPUP_ROOM_LEAVE_PENALTY")
 )
