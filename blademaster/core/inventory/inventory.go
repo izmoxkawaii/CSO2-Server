@@ -46,7 +46,7 @@ func BuildInventoryInfoSingle(u *User, itemid uint32) []byte {
 			continue
 		}
 		WriteUint16(&buf, uint16(k), &offset)
-		if v.Count <= 0 {
+		if v.Count == 0 {
 			WriteUint8(&buf, 0, &offset) //existed
 		} else {
 			WriteUint8(&buf, 1, &offset)

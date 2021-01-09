@@ -718,10 +718,8 @@ func (u *User) AddItem(itemid uint32) {
 	u.UserMutex.Lock()
 	defer u.UserMutex.Unlock()
 	for k, v := range u.Inventory.Items {
-		if v.Id == itemid {
-			if u.Inventory.Items[k].Count < math.MaxUint16 {
-				u.Inventory.Items[k].Count++
-			}
+		if v.Id == itemid && v.Count < math.MaxUint16 {
+			u.Inventory.Items[k].Count++
 			return
 		}
 	}
@@ -766,12 +764,8 @@ func (u *User) DecreaseItem(itemid uint32) bool {
 	u.UserMutex.Lock()
 	defer u.UserMutex.Unlock()
 	for k, v := range u.Inventory.Items {
-		if v.Id == itemid {
+		if v.Id == itemid && v.Count > 0 {
 			u.Inventory.Items[k].Count--
-			if u.Inventory.Items[k].Count < 0 {
-				u.Inventory.Items[k].Count = 0
-			}
-			//count := u.Inventory.Items[k].Count
 			return true
 		}
 	}
