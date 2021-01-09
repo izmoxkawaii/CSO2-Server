@@ -28,7 +28,6 @@ func OnGameStart(p *PacketData, client net.Conn) {
 		return
 	}
 	//房主开始游戏,设置房间状态
-	setting := BuildRoomSetting(rm, 0XFFFFFFFFFFFFFFFF)
 	if rm.HostUserID == uPtr.Userid {
 		rm.StopCountdown()
 		rm.SetStatus(StatusIngame)
@@ -41,6 +40,7 @@ func OnGameStart(p *PacketData, client net.Conn) {
 		uPtr.ResetDeadNum()
 		uPtr.ResetAssistNum()
 		//对非房主用户发送数据包
+		setting := BuildRoomSetting(rm, 0XFFFFFFFFFFFFFFFF)
 		for _, v := range rm.Users {
 			if v.Userid != uPtr.Userid {
 				rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), setting)
@@ -89,7 +89,7 @@ func OnGameStart(p *PacketData, client net.Conn) {
 		uPtr.ResetAssistNum()
 		uPtr.SetUserIngame(true)
 		//发送房间数据
-		rst := BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeRoom), setting)
+		rst := BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeRoom), BuildRoomSetting(rm, 0XFFFFFFFFFFFFFFFF))
 		SendPacket(rst, uPtr.CurrentConnection)
 		//给主机发送其他人的数据
 		rst = UDPBuild(host.CurrentSequence, 0, uPtr.Userid, uPtr.NetInfo.ExternalIpAddress, uPtr.NetInfo.ExternalClientPort)
