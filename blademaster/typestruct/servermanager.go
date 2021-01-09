@@ -38,16 +38,16 @@ type (
 )
 
 const (
-	MAXCHANNELNUM       = 16
-	MAXSERVERNUM        = 15
+	MAXCHANNELNUM       = 100
+	MAXSERVERNUM        = 100
 	MAXCHANNELROOMNUM   = 0xFF
 	MAXROOMNUM          = 0xFFFF
-	DefalutServerName   = "CSO2-Server[1/1]"
-	DefalutChannelName1 = "CSO2-Channel[1/2]"
-	DefalutChannelName2 = "CSO2-Channel[2/2]"
+	DefalutServerName   = "Normal Server"
+	DefalutChannelName1 = "Channel 1"
+	DefalutChannelName2 = "Channel 2"
 
 	//貌似非3以外的都被客户端认为是战队频道
-	ChannelServerTypeNormal = 1
+	ChannelServerTypeNormal = 5
 	ChannelServerTypeTeam   = 3
 
 	//ChannelType
