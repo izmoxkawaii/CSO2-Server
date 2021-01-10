@@ -28,8 +28,11 @@ func OnHostGameStart(client net.Conn) {
 		return
 	}
 	//房主开始游戏,设置房间状态
+	setting := BuildRoomSetting(rm, 0XFFFFFFFFFFFFFFFF)
 	for _, v := range rm.Users {
 		if v.Userid != uPtr.Userid {
+			rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), setting)
+			SendPacket(rst, v.CurrentConnection)
 			if v.IsUserReady() {
 				v.ResetAssistNum()
 				v.ResetKillNum()
@@ -55,7 +58,7 @@ func OnHostGameStart(client net.Conn) {
 			SendPacket(rst, k.CurrentConnection)
 		}
 	}
-	DebugInfo(2, "Host", uPtr.UserName, "started game in room", string(rm.Setting.RoomName), "id", rm.Id)
+	DebugInfo(2, "Host", uPtr.UserName, "started game server in room", string(rm.Setting.RoomName), "id", rm.Id)
 }
 
 func buildJoinHost(id uint32) []byte {

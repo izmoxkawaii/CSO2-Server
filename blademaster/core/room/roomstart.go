@@ -39,14 +39,6 @@ func OnGameStart(p *PacketData, client net.Conn) {
 		uPtr.ResetKillNum()
 		uPtr.ResetDeadNum()
 		uPtr.ResetAssistNum()
-		//对非房主用户发送数据包
-		setting := BuildRoomSetting(rm, 0XFFFFFFFFFFFFFFFF)
-		for _, v := range rm.Users {
-			if v.Userid != uPtr.Userid {
-				rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeRoom), setting)
-				SendPacket(rst, v.CurrentConnection)
-			}
-		}
 		//主机开始游戏
 		rst := BytesCombine(BuildHeader(uPtr.CurrentSequence, PacketTypeHost), BuildGameStart(uPtr.Userid))
 
