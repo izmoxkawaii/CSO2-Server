@@ -245,9 +245,6 @@ func main() {
 	//Start BroadCast Service
 	go BroadcastRoomList()
 
-	//Start OutdatedItem Service
-	go CheckOutdatedItemService()
-
 	//Start Register Server
 	if Conf.EnableRegister != 0 {
 		go OnRegister(path)
@@ -403,25 +400,6 @@ func BroadcastRoomList() {
 	}
 }
 
-func CheckOutdatedItemService() {
-	for {
-		timer := time.NewTimer(3 * time.Minute)
-		<-timer.C
-
-		for _, v := range UsersManager.Users {
-			if v != nil {
-				idxs := v.CheckOutdatedItemIngame()
-				DebugInfo(1, "Find", len(idxs), "outdated items for user", v.UserName)
-				for _, idx := range idxs {
-					rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeInventory_Create),
-						BuildInventoryInfoSingle(v, 0, idx))
-					SendPacket(rst, v.CurrentConnection)
-				}
-			}
-		}
-
-	}
-}
 func checkFolder(path string) {
 	rst, _ := PathExists(DBPath)
 	if !rst {
