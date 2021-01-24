@@ -45,7 +45,7 @@ import (
 
 var (
 	//SERVERVERSION 版本号
-	SERVERVERSION = "v0.5.0"
+	SERVERVERSION = "v0.5.1"
 )
 
 func ReadHead(client net.Conn) ([]byte, bool) {
@@ -141,11 +141,11 @@ func main() {
 	InitCSV(path)
 	FullInventoryItem = CreateFullInventoryItem()
 	FullInventoryReply = BuildFullInventoryInfo()
-	InitBoxReply()
 	InitCampaignReward()
 	if Conf.EnableShop == 1 {
 		InitShopReply()
 	}
+	InitBoxReply()
 
 	//read locales
 	Locales.InitMotd(path)
@@ -244,6 +244,9 @@ func main() {
 
 	//Start BroadCast Service
 	go BroadcastRoomList()
+
+	//Start OutdatedItem Service
+	go CheckOutdatedItemService()
 
 	//Start Register Server
 	if Conf.EnableRegister != 0 {
@@ -400,6 +403,25 @@ func BroadcastRoomList() {
 	}
 }
 
+func CheckOutdatedItemService() {
+	for {
+		timer := time.NewTimer(3 * time.Minute)
+		<-timer.C
+
+		for _, v := range UsersManager.Users {
+			if v != nil {
+				idxs := v.CheckOutdatedItemIngame()
+				DebugInfo(1, "Find", len(idxs), "outdated items for user", v.UserName)
+				for _, idx := range idxs {
+					rst := BytesCombine(BuildHeader(v.CurrentSequence, PacketTypeInventory_Create),
+						BuildInventoryInfoSingle(v, 0, idx))
+					SendPacket(rst, v.CurrentConnection)
+				}
+			}
+		}
+
+	}
+}
 func checkFolder(path string) {
 	rst, _ := PathExists(DBPath)
 	if !rst {
@@ -427,16 +449,3 @@ func clearDB() {
 	Conf.EnableDataBase = 0
 	DB = nil
 }
-
-// func generate(path string) {
-// 	file := path + "\\defaultWeaponList.csv"
-// 	f, _ := os.Create(file)
-// 	defer f.Close()
-// 	f.WriteString(fmt.Sprintf("itemid,itemname\n"))
-// 	for _, v := range DefaultInventoryItem {
-// 		if len(ItemList[v.Id].Name) <= 0 {
-// 			continue
-// 		}
-// 		f.WriteString(fmt.Sprintf("%d,%s\n", v.Id, ItemList[v.Id].Name))
-// 	}
-// }

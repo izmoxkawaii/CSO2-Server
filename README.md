@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a4pj1il9li5s08k5?svg=true)](https://ci.appveyor.com/project/KouKouChan/cso2-server)
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![](https://img.shields.io/badge/version-v0.5.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
+[![](https://img.shields.io/badge/version-v0.5.1-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
 [English](./README.en.md) | [Turkish](./README.tr.md) | [CodePage](./CodePage.md)
 
@@ -60,13 +60,9 @@ CSO2-TW https://discord.gg/CBqcPP5
 
 ### 六、客户端下载
 
-  [点击2018韩服端下载](https://pan.baidu.com/s/1NGHisLeTB1nXH4zCtR6FSA) 提取码：5vca  
+  [点击2018年国服端下载](https://pan.baidu.com/s/1KD5ZIEsdTogUJ4WY_b-OjA) 提取码：52p7 
 
-  [韩服端汉化包GoogleDrive](https://drive.google.com/file/d/1aaoKSBrAKgO30w-BCf1VJG6n6PUiS-88/view?usp=sharing)
-
-  [点击2017年国服端下载](https://pan.baidu.com/s/1tTtks0fwROk0WUueC2gnOQ)  提取码：o9hd
-
-  [单独启动器下载，如果你已有客户端](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
+  [启动器下载](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
 
 ### 七、使用方法
 
