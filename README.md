@@ -8,6 +8,8 @@
 
 *声明：Counter-Strike Online 2 归 NEXON 所有 ，本程序仅用于学习之用*
 
+#由于本程序被盗卖，已闭源#
+
 ### 一、介绍
 
 CSOL2 服务器 v0.5.0
