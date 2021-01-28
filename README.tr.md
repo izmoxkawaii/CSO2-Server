@@ -4,6 +4,8 @@
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![](https://img.shields.io/badge/version-v0.5.1-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
+#someone is selling my project,i decide to close source now,i'm sorry#
+
 ### 0x01 Oyun Açıklaması
 
 Counter-Strike Online 2 Sunucusu
