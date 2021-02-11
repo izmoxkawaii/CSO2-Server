@@ -30,9 +30,9 @@ CSOL2 服务器 v0.5.0
 
 CSO2-CN QQ-group 948725573
 
-CSO2-TUR/KOR https://discord.gg/QGQDwfPrM7
-
 CSO2-TW https://discord.gg/CBqcPP5
+
+CSO2-TUR/ENG/KOR : https://discord.gg/DC3n6nX89D
 
 
 ### 二、基本已完成的功能
