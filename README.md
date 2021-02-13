@@ -16,8 +16,6 @@ CSOL2 服务器 v0.6.0
 
 用于 **2018年国服 Counter-Strike Online 2**
 
-目前客户端请使用L-Leite的启动器,**韩服端竞技模式有问题的请下载最新的汉化包**。
-
 基于L-Leite的[cso2-master-server](https://github.com/L-Leite/cso2-master-server)。
 
 如果大家有什么建议或问题，欢迎提出。
