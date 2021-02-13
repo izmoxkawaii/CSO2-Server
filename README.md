@@ -2,17 +2,15 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a4pj1il9li5s08k5?svg=true)](https://ci.appveyor.com/project/KouKouChan/cso2-server)
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![](https://img.shields.io/badge/version-v0.5.1-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
+[![](https://img.shields.io/badge/version-v0.6.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
 [English](./README.en.md) | [Turkish](./README.tr.md) | [CodePage](./CodePage.md)
 
 *声明：Counter-Strike Online 2 归 NEXON 所有 ，本程序仅用于学习之用*
 
-#由于本程序被盗卖，已闭源#
-
 ### 一、介绍
 
-CSOL2 服务器 v0.5.0
+CSOL2 服务器 v0.6.0
 
 默认需要浏览器打开**localhost:1314**网页注册账号，不需要输入邮箱和验证码
 
