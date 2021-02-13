@@ -49,9 +49,9 @@ CSO2-TUR/ENG/KOR : https://discord.gg/DC3n6nX89D
 
 ### 四、客户端下载
 
-  [点击2018年国服端下载](https://pan.baidu.com/s/1KD5ZIEsdTogUJ4WY_b-OjA) 提取码：52p7 
+  [2018年国服端](https://pan.baidu.com/s/1KD5ZIEsdTogUJ4WY_b-OjA) 提取码：52p7 
 
-  [启动器下载](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
+  [启动器(必下)](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
 
 ### 五、使用方法
 
@@ -79,6 +79,8 @@ START ./bin/launcher.exe -masterip IP地址 -enablecustom -username 用户名 -p
 - 如果你想开启邮箱注册，那么你需要一个邮箱账号并且申请到了密钥，将密钥填入配置文件，同时开启EnableMail。
 - 如果你是和别人联机玩，那么即使你的电脑运行着服务端也**不能**在bat文件里填127.0.0.1，不然对方无法通过你的ip连接你。
 - 浏览器里可以输入localhost:1314进入web页面，点击右上角register进行注册。
+- 当你要架设局域网或外网时，请打开防火墙的端口。30001-TCP类型端口、30002-UDP类型端口
+- 建立互联网服务器需要双方玩家都能内网穿透，实测局域网能够连接，互联网无法房间内加入主机，可能需要架设虚拟局域网。
 
 ### 六、Console使用方法
 
@@ -141,10 +143,6 @@ docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 koukouchan/cs
 ### 九、编译环境
 
 *Go 1.15.8*
-
-当你要架设局域网或外网时，请打开防火墙的端口。30001-TCP类型端口、30002-UDP类型端口
-
-建立互联网服务器需要双方玩家都能内网穿透，实测局域网能够连接，互联网无法房间内加入主机，可能需要架设虚拟局域网。
 
 ### 十、图片
 
