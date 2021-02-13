@@ -144,6 +144,8 @@ docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 koukouchan/cs
 
 *Go 1.15.8*
 
+*MinGW 8.1.0*
+
 ### 十、图片
 
 ![Image](./photos/main.png)
