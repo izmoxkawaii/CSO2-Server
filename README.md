@@ -14,7 +14,7 @@ CSOL2 服务器 v0.6.0
 
 默认需要浏览器打开**localhost:1314**网页注册账号，不需要输入邮箱和验证码
 
-用于 **2017年国服 Counter-Strike Online 2** 和 **2018年韩服 Counter-Strike Online 2**  
+用于 **2018年国服 Counter-Strike Online 2**
 
 目前客户端请使用L-Leite的启动器,**韩服端竞技模式有问题的请下载最新的汉化包**。
 
