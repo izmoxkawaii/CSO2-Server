@@ -22,7 +22,7 @@ CSOL2 服务器 v0.6.0
 
 如果大家有什么建议或问题，欢迎提出。
 
-欢迎大家帮忙本地化文件，具体见下方第五部分。
+欢迎大家帮忙本地化文件，具体见下方第三部分。
 
 **使用该服务端的服务器：**
 
@@ -32,21 +32,12 @@ CSO2-TW https://discord.gg/CBqcPP5
 
 CSO2-TUR/ENG/KOR : https://discord.gg/DC3n6nX89D
 
-
-### 二、基本已完成的功能
-
-    登录、频道、房间、仓库、UDP、角色战绩(游戏结果界面)、数据库、个人信息、聊天、命令行和数据库、新手教程、开箱子
-
-### 三、正在编写的功能
-
-​    
-
-### 四、已知问题
+### 二、已知问题
 
     1.房主离开后，其余玩家会卡住直到炸出房间
     2.服务端目前还未适配2017国服端的部分数据包，所以结算界面数据显示存在错误
 
-### 五、部分数据本地化方法
+### 三、部分数据本地化方法
 
 ```
 1.打开server.conf
@@ -56,13 +47,13 @@ CSO2-TUR/ENG/KOR : https://discord.gg/DC3n6nX89D
 5.根据 zh-cn.ini 中的内容相应修改你的zh-tw.ini文件
 ```
 
-### 六、客户端下载
+### 四、客户端下载
 
   [点击2018年国服端下载](https://pan.baidu.com/s/1KD5ZIEsdTogUJ4WY_b-OjA) 提取码：52p7 
 
   [启动器下载](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
 
-### 七、使用方法
+### 五、使用方法
 
 1.需要有CSOL2客户端，同时使用第三方启动器
 
@@ -89,7 +80,7 @@ START ./bin/launcher.exe -masterip IP地址 -enablecustom -username 用户名 -p
 - 如果你是和别人联机玩，那么即使你的电脑运行着服务端也**不能**在bat文件里填127.0.0.1，不然对方无法通过你的ip连接你。
 - 浏览器里可以输入localhost:1314进入web页面，点击右上角register进行注册。
 
-### 八、Console使用方法
+### 六、Console使用方法
 
 CSO2-Server自带管理员功能，可通过命令行参数打开console功能管理服务器，前提需要服务器已经在运行。
 
@@ -117,7 +108,7 @@ Usage of CSO2-Server.exe:
 
 3.连接成功后可以使用命令管理服务器了，你可以踢出玩家，或者给予玩家物品等。
 
-### 九、自定义文件方法
+### 七、自定义文件方法
 
 1.下载CSOL2解包工具，[点击这里下载](https://pan.baidu.com/s/14q1SoIdHwp1casMWG2OS-w) 提取码：41bs
 
@@ -127,7 +118,7 @@ Usage of CSO2-Server.exe:
 
 4.将文件放入csol2目录的custom文件夹下，打开游戏
 
-### 十、Docker下使用方法
+### 八、Docker下使用方法
 
 1.首先你需要拥有Docker,请下载并安装Docker,同时配置好Docker,比如Docker源
 
@@ -145,52 +136,17 @@ docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 koukouchan/cs
 
 4.接下来打开客户端，连接服务器
 
-### 十一、编译环境
+5.建议关闭docker时将容器数据导出，否则将丢失玩家数据！
 
-*Go 1.15.6*
+### 九、编译环境
+
+*Go 1.15.8*
 
 当你要架设局域网或外网时，请打开防火墙的端口。30001-TCP类型端口、30002-UDP类型端口
 
-貌似建立互联网服务器需要双方玩家都能内网穿透，实测局域网能够连接，互联网无法房间内加入主机，可能需要架设虚拟局域网。
+建立互联网服务器需要双方玩家都能内网穿透，实测局域网能够连接，互联网无法房间内加入主机，可能需要架设虚拟局域网。
 
-### 十二、编译方法
-
-```shell
-1. 在shell中执行 go get github.com/KouKouChan/CSO2-Server
-2. 进入目录
-3. 执行命令 go build
-4. 运行生成的可执行文件即可
-```
-
-### 十三、Docker下编译方法
-
-1.首先你需要拥有Docker,请下载并安装Docker和Git,同时配置好Docker,比如Docker源,使用如下命令安装git:
-
-```
-yum install git     #centos
-或
-apt-get install git #ubuntu
-```
-
-2.在终端下输入以下命令:
-
-```shell
-git clone https://github.com/KouKouChan/CSO2-Server
-cd CSO2-Server
-docker build -t cso2-server .
-```
-
-3.在第2步后，如果运行正常，会显示所有步骤都运行完毕。接下来是运行服务端，为了能够让游戏和Docker容器里面的服务端相连，你需要打开相应的端口映射，使用以下命令运行：
-
-```shell
-docker run -p 30001:30001 -p 30002:30002 -p 1314:1314 -p 1315:1315 cso2-server
-```
-
-4.接下来打开客户端，连接服务器
-
-5.建议关闭docker时将容器数据导出，否则将丢失玩家数据！
-
-### 十四、图片
+### 十、图片
 
 ![Image](./photos/main.png)
 
