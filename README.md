@@ -12,10 +12,6 @@
 
 CSOL2 服务器 v0.6.0
 
-默认需要浏览器打开**localhost:1314**网页注册账号，不需要输入邮箱和验证码
-
-用于 **2018年国服 Counter-Strike Online 2**
-
 基于L-Leite的[cso2-master-server](https://github.com/L-Leite/cso2-master-server)。
 
 如果大家有什么建议或问题，欢迎提出。
