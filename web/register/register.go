@@ -47,7 +47,13 @@ func OnRegister(path string) {
 	MailService.SenderCode = Conf.REGPassWord
 	MailService.SenderSMTP = Conf.REGSMTPaddr
 	http.HandleFunc("/", OnMain)
+	http.HandleFunc("/landing/index", OnLandingIndex)
+	http.HandleFunc("/main/index", OnMainIndex)
 	http.HandleFunc("/download", OnDownload)
+	http.HandleFunc("/donate", OnDonate)
+	http.HandleFunc("/about", OnAbout)
+	http.HandleFunc("/promotion", OnPromotion)
+	http.HandleFunc("/launcher", OnLauncher)
 	http.HandleFunc("/register", Register)
 	fmt.Println("Web is running at", "[AnyAdapter]:"+strconv.Itoa(int(Conf.REGPort)))
 	if Conf.EnableMail != 0 {
@@ -251,6 +257,86 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func OnLauncher(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/launcher.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
+func OnPromotion(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/promotion.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
+func OnLandingIndex(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/landing.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
+func OnMainIndex(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/main.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
 func OnDownload(w http.ResponseWriter, r *http.Request) {
 	path, err := GetExePath()
 	if err != nil {
@@ -258,6 +344,46 @@ func OnDownload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	file, err := os.Open(path + "/CSO2-Server/assert/web/download.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
+func OnDonate(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/donate.html")
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	buff, err := ioutil.ReadAll(file)
+	file.Close()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	w.Write(buff)
+}
+
+func OnAbout(w http.ResponseWriter, r *http.Request) {
+	path, err := GetExePath()
+	if err != nil {
+		DebugInfo(2, err)
+		return
+	}
+	file, err := os.Open(path + "/CSO2-Server/assert/web/about.html")
 	if err != nil {
 		DebugInfo(2, err)
 		return
