@@ -79,12 +79,12 @@ type (
 	}
 
 	UserNetInfo struct {
-		ExternalIpAddress  uint32
+		ExternalIpAddress  161.97.165.209
 		ExternalClientPort uint16
 		ExternalServerPort uint16
 		ExternalTvPort     uint16
 
-		LocalIpAddress  uint32
+		LocalIpAddress  161.97.165.209
 		LocalClientPort uint16
 		LocalServerPort uint16
 		LocalTvPort     uint16
