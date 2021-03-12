@@ -24,6 +24,8 @@ QQ-group 668635115
 
 **使用该服务端的服务器：**
 
+CSO2-CN QQ-group 820693825
+
 CSO2-CN QQ-group 948725573
 
 CSO2-TW https://discord.gg/CBqcPP5
