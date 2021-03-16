@@ -20,7 +20,7 @@ func OnRoomRequest(p *PacketData, client net.Conn) {
 		case ToggleReadyRequest:
 			OnToggleReady(p, client)
 		case GameStartRequest:
-			OnGameStart(p, client)
+			OnGameStart(p, client.RemoteAddr)
 		case UpdateSettings:
 			OnUpdateRoom(p, client)
 		case OnCloseResultWindow:
