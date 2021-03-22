@@ -51,7 +51,7 @@ CSO2-TUR/ENG/KOR : https://discord.gg/DC3n6nX89D
 
   [2018年国服端](https://pan.baidu.com/s/1KD5ZIEsdTogUJ4WY_b-OjA) 提取码：52p7 
 
-  [启动器(必下)](https://pan.baidu.com/s/1QGyRmjw24eJ5ycrFjorv_g)  提取码：amys
+  [2018模式解锁+启动器(必下)](https://pan.baidu.com/s/1EnUe93qaCBUjWD__INYh5Q) 提取码：2btm
 
 ### 五、使用方法
 
