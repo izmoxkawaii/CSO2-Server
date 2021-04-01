@@ -4,7 +4,11 @@
 [![](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![](https://img.shields.io/badge/version-v0.6.0-blue)](https://github.com/KouKouChan/CSO2-Server/releases)
 
-#someone is selling my project,i decide to close source now,i'm sorry#
+#Birileri Projeyi Kötüye Kullandığından Github'daki açık kaynak kodu şimdilik yenilenmeyecektir.
+#Taobao'daki 80 Game House, Qianyun Technology, Qianyun Games, Yinyue Entertainment Network ve diğer korsanlar gibi vicdansız tüccarlara güvenmeyin !
+#Geliştirici diyorki bazı insanlar kötüye kullanım gerçekleştirdiği için yukarda yazılı Taobao kullanıcılarına güvenmeyin ve aldırış etmeyiniz
+#Bu Sunucu KouKouChan'a Aittir farklı insanlar tarafından kötüye kullanılmaya devam edilirse sunucu desteği kesilecektir...
+#Sadece KouKouChan Tarafından bilinen sunuculara destek verilmektedir. herşey için teşekkürler 'KouKouChan'
 
 ### 0x01 Oyun Açıklaması
 
